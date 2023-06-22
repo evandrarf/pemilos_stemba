@@ -9,7 +9,7 @@ class DashboardController extends Controller
     public function index()
     {
         return Inertia::render('admin/dashboard/index', [
-            "title" => 'POS | Dashboard'
+            "title" => 'PEMILOS | Dashboard'
         ]);
     }
 }

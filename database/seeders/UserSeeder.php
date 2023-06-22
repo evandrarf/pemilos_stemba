@@ -18,22 +18,10 @@ class UserSeeder extends Seeder
     {
         $super_admin = User::create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@pos.com',
+            'email' => 'superadmin@pemilos.com',
             'email_verified_at' => now(),
             'password' => Hash::make('rahasia123')
         ]);
         $super_admin->assignRole('super admin');
-        
-        for ($i=0; $i < 10 ; $i++) {
-            $user = User::create([
-                'name' => fake()->name(),
-                'email' => fake()->unique()->safeEmail(),
-                'email_verified_at' => now(),
-                'password' => Hash::make('rahasia123'),
-                'remember_token' => Str::random(10),
-            ]);
-
-            $user->assignRole('user');
-        }
     }
 }
