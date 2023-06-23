@@ -76,7 +76,7 @@ const breadcrumb = [
     },
 ];
 
-const heads = ["Name", "NIS", "Class", ""];
+const heads = ["No", "Name", "NIS", "Class", ""];
 
 const handleAddModalForm = () => {
     openModalForm.value = true;
