@@ -14,6 +14,11 @@ class GetSidebarMenuAction
                 'can'  => 'view_general_dashboard'
             ],
             [
+                'text' => 'Candidate',
+                'url' => route('candidates.index'),
+                'icon' => 'VPerson',
+            ],
+            [
                 'text' => 'Settings',
                 'icon' => 'VSetting',
                 'group' => true,
