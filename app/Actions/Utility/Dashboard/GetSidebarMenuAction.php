@@ -20,6 +20,12 @@ class GetSidebarMenuAction
                 'can' => ['view_candidate']
             ],
             [
+                'text' => 'Candidate Pairs',
+                'url' => route('candidate-pairs.index'),
+                'icon' => 'VUserGroup',
+                // 'can' => ['view_candidate']
+            ],
+            [
                 'text' => 'Settings',
                 'icon' => 'VSetting',
                 'group' => true,

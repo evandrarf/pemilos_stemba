@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('candidate_pairs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('chairman')->unique()->constrained('candidates')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('vice_chairman')->unique()->constrained('candidates')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('chairman_id')->unique()->constrained('candidates')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('vice_chairman_id')->unique()->constrained('candidates')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('image')->nullable();
             $table->string('vision')->nullable();
             $table->text('mission')->nullable();

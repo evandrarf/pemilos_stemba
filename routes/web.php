@@ -50,7 +50,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard.index');
         });
 
-        require __DIR__ . '/admin/settings.php';
         require __DIR__ . '/admin/candidates.php';
+        require __DIR__ . '/admin/candidate_pairs.php';
+        require __DIR__ . '/admin/settings.php';
     });
 });

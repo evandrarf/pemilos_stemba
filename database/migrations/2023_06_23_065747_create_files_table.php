@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->string('url');
+            $table->string('file_name');
+            $table->string('extension')->nullable();
+            $table->bigInteger('size');
             $table->timestamps();
+            $table->string('path_name');
+            $table->softDeletes();
         });
     }
 

@@ -21,7 +21,7 @@ class CandidatesController extends Controller
 
     public function index()
     {
-        return Inertia::render('admin/candidates/index', ['title' => 'Pemilos | Candidates']);
+        return Inertia::render('admin/candidates/index', ['title' => 'Candidates | Pemilos']);
     }
 
     public function getData(Request $request)
