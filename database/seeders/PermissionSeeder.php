@@ -27,7 +27,23 @@ class PermissionSeeder extends Seeder
                                 'label' => 'View Dashboard Overview',
                             ]
                         ]
-                    ]
+                    ],
+
+                ]
+            ],
+
+            [
+                'group' => 'candidate',
+                'sub_group' => [
+                    [
+                        'name' => 'candidate',
+                        'permission' => [
+                            [
+                                'name' => 'view_candidate',
+                                'label' => 'View Candidate',
+                            ]
+                        ]
+                    ],
                 ]
             ],
 
@@ -48,7 +64,7 @@ class PermissionSeeder extends Seeder
             ],
         ];
 
-        // Create permissions 
+        // Create permissions
         try {
             $newPermission = [];
             foreach ($permissions as $group) {

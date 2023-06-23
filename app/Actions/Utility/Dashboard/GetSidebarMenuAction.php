@@ -17,6 +17,7 @@ class GetSidebarMenuAction
                 'text' => 'Candidate',
                 'url' => route('candidates.index'),
                 'icon' => 'VPerson',
+                'can' => ['view_candidate']
             ],
             [
                 'text' => 'Settings',

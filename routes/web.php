@@ -41,7 +41,7 @@ Route::prefix('admin')->group(function () {
         Route::post('password/email', 'sendResetLinkEmail')->name('sendresetlinkemail');
     });
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', function () {
             return redirect(route('dashboard.index'));
         });
