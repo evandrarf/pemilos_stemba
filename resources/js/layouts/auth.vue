@@ -11,4 +11,3 @@ import VNotification from "@/components/VNotification/Index.vue";
         </div>
     </main>
 </template>
-
