@@ -51,8 +51,8 @@ class CandidatePairsController extends Controller
     public function createCandidatePair(CreateCandidatePairRequest $request)
     {
         try {
-            $file = $this->fileService->uploadFile($request->file('file'));
-            $data = $this->candidatePairService->createCandidatePair($request, $file);
+            // $file = $this->fileService->uploadFile($request->file('file'));
+            $data = $this->candidatePairService->createCandidatePair($request);
 
             $result = new SubmitCandidatePairResource($data, 'Candidate Pair created successfully');
             return $this->respond($result);
