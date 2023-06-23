@@ -50,4 +50,30 @@ class CandidatesController extends Controller
             return $this->exceptionError($e->getMessage());
         }
     }
+
+    public function updateCandidate(CreateCandidateRequest $request, $id)
+    {
+        try {
+            $data = $this->candidateService->updateCandidate($request, $id);
+
+            $result = new SubmitCandidateResource($data, 'Success update candidate');
+
+            return $this->respond($result);
+        } catch (\Exception $e) {
+            return $this->exceptionError($e->getMessage());
+        }
+    }
+
+    public function deleteCandidate($id)
+    {
+        try {
+            $data = $this->candidateService->deleteCandidate($id);
+
+            $result = new SubmitCandidateResource($data, 'Success delete candidate');
+
+            return $this->respond($result);
+        } catch (\Exception $e) {
+            return $this->exceptionError($e->getMessage());
+        }
+    }
 }

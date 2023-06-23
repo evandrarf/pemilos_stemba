@@ -8,7 +8,7 @@ export default {
 import { Head } from "@inertiajs/inertia-vue3";
 import { array, object, string } from "vue-types";
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import { notify } from "notiwind";
 import debounce from "@/composables/debounce";
 import AppLayout from "@/layouts/apps.vue";
@@ -19,6 +19,10 @@ import VLoading from "@/components/VLoading/index.vue";
 import VEmpty from "@/components/src/icons/VEmpty.vue";
 import VModalForm from "./ModalForm.vue";
 import VPagination from "@/components/VPagination/index.vue";
+import VDropdownEditMenu from "@/components/VDropdownEditMenu/index.vue";
+import VEdit from "@/components/src/icons/VEdit.vue";
+import VTrash from "@/components/src/icons/VTrash.vue";
+import VAlert from "@/components/VAlert/index.vue";
 
 const props = defineProps({
     title: string(),
@@ -36,6 +40,13 @@ const pagination = ref({
 const openModalForm = ref(false);
 const updateAction = ref(false);
 const itemSelected = ref({});
+const openAlert = ref(false);
+const alertData = reactive({
+    headerLabel: "",
+    contentLabel: "",
+    closeLabel: "",
+    submitLabel: "",
+});
 
 const getData = debounce(async (page) => {
     axios
@@ -85,6 +96,7 @@ const handleAddModalForm = () => {
 
 const handleCloseModalForm = () => {
     openModalForm.value = false;
+    itemSelected.value = {};
     updateAction.value = false;
 };
 
@@ -103,6 +115,56 @@ const previousPaginate = () => {
     pagination.value.current_page -= 1;
     isLoading.value = true;
     getData(pagination.value.current_page);
+};
+
+const handleEditCandidate = (data) => {
+    itemSelected.value = { ...data };
+    openModalForm.value = true;
+    updateAction.value = true;
+};
+
+const closeAlert = () => {
+    openAlert.value = false;
+};
+
+const alertDelete = (data) => {
+    openAlert.value = true;
+    alertData.headerLabel = "Delete Candidate";
+    alertData.contentLabel = `Are you sure want to delete ${data.name}?`;
+    alertData.closeLabel = "Cancel";
+    alertData.submitLabel = "Delete";
+    itemSelected.value = { ...data };
+};
+
+const deleteCandidate = () => {
+    axios
+        .delete(route("candidates.delete", itemSelected.value.id))
+        .then((res) => {
+            notify(
+                {
+                    type: "success",
+                    group: "top",
+                    text: res.data.meta.message,
+                },
+                2500
+            );
+            isLoading.value = true;
+            getData(pagination.value.current_page);
+        })
+        .catch((res) => {
+            notify(
+                {
+                    type: "error",
+                    group: "top",
+                    text: res.response.data.message,
+                },
+                2500
+            );
+        })
+        .finally(() => {
+            openAlert.value = false;
+            // isLoading.value = false;
+        });
 };
 
 onMounted(() => {
@@ -176,6 +238,36 @@ onMounted(() => {
                 <td class="px-4 whitespace-nowrap h-16">
                     {{ data.class }}
                 </td>
+                <td class="px-4 whitespace-nowrap h-16">
+                    <VDropdownEditMenu
+                        class="relative inline-flex r-0"
+                        :align="'right'"
+                        :last="index === query.length - 1 ? true : false"
+                    >
+                        <li
+                            class="cursor-pointer hover:bg-slate-100"
+                            @click="handleEditCandidate(data)"
+                        >
+                            <div class="flex items-center space-x-2 p-3">
+                                <span>
+                                    <VEdit color="primary" />
+                                </span>
+                                <span>Edit</span>
+                            </div>
+                        </li>
+                        <li class="cursor-pointer hover:bg-slate-100">
+                            <div
+                                class="flex justify-between items-center space-x-2 p-3"
+                                @click="alertDelete(data)"
+                            >
+                                <span>
+                                    <VTrash color="danger" />
+                                </span>
+                                <span>Delete</span>
+                            </div>
+                        </li>
+                    </VDropdownEditMenu>
+                </td>
             </tr>
         </VDataTable>
         <div class="px-4 py-6">
@@ -192,5 +284,15 @@ onMounted(() => {
         :open-dialog="openModalForm"
         @close="handleCloseModalForm"
         @success="handleSuccess"
+    />
+    <VAlert
+        :open-dialog="openAlert"
+        @closeAlert="closeAlert"
+        @submitAlert="deleteCandidate"
+        type="danger"
+        :headerLabel="alertData.headerLabel"
+        :contentLabel="alertData.contentLabel"
+        :closeLabel="alertData.closeLabel"
+        :submitLabel="alertData.submitLabel"
     />
 </template>

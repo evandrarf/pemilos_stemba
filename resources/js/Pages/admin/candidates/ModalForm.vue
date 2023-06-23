@@ -70,6 +70,66 @@ const createCandidate = async () => {
             isLoading.value = false;
         });
 };
+
+const updateCandidate = async () => {
+    isLoading.value = true;
+
+    axios
+        .put(route("candidates.update", form.value.id), { ...form.value })
+        .then((res) => {
+            emit("success");
+            emit("close");
+            notify(
+                {
+                    type: "success",
+                    group: "top",
+                    text: res.data.meta.message,
+                },
+                2500
+            );
+        })
+        .catch((res) => {
+            const result = res.response.data;
+            const metaError = res.response.data.meta?.error;
+            if (result.hasOwnProperty("errors")) {
+                formError.value = ref({});
+                Object.keys(result.errors).map((key) => {
+                    formError.value[key] = result.errors[key].toString();
+                });
+            }
+            if (metaError) {
+                notify(
+                    {
+                        type: "error",
+                        group: "top",
+                        text: metaError,
+                    },
+                    2500
+                );
+            } else {
+                notify(
+                    {
+                        type: "error",
+                        group: "top",
+                        text: result.message,
+                    },
+                    2500
+                );
+            }
+        })
+        .finally(() => {
+            isLoading.value = false;
+        });
+};
+
+watch(
+    () => props.data,
+    (newVal, oldVal) => {
+        if (newVal) {
+            form.value = newVal;
+        }
+    }
+);
 </script>
 <template>
     <VDialog

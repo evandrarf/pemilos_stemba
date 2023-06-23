@@ -25,4 +25,24 @@ class CandidateService
 
         return $query;
     }
+
+    public function updateCandidate($request, $id)
+    {
+        $data = $request->validated();
+
+        $query = Candidate::where('id', $id)->update([
+            'name' => $data['name'],
+            'nis' => $data['nis'],
+            'class' => $data['class'],
+        ]);
+
+        return $query;
+    }
+
+    public function deleteCandidate($id)
+    {
+        $query = Candidate::where('id', $id)->delete();
+
+        return $query;
+    }
 }
