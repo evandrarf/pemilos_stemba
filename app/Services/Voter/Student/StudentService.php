@@ -44,4 +44,23 @@ class StudentService
 
         return $query;
     }
+
+    public function updateStudentVoter($request, $id)
+    {
+        $generatePassword  = new GeneratePassword();
+
+        $data = $request->validated();
+
+        $data['password'] = $data['password'] ?? $generatePassword->handle(10);
+
+        $query = Voter::where('id', $id)->update([
+            'name' => $data['name'],
+            'username' => $data['username'],
+            'class' => $data['class'],
+            // 'status' => $data['status'],
+            'password' => $data['password']
+        ]);
+
+        return $query;
+    }
 }

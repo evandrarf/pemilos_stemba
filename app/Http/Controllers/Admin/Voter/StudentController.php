@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Voter;
 use App\Actions\Options\GetClassOptions;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStudentVoterRequest;
+use App\Http\Requests\UpdateStudentVoterRequest;
 use App\Http\Resources\Voter\Student\StudentListResource;
 use App\Http\Resources\Voter\Student\SubmitStudentVoterResource;
 use App\Services\Voter\Student\StudentService;
@@ -58,6 +59,19 @@ class StudentController extends Controller
             $data = $this->studentService->createStudentVoter($request);
 
             $result = new SubmitStudentVoterResource($data, 'Success create student voter');
+
+            return $this->respond($result);
+        } catch (\Exception $e) {
+            return $this->exceptionError($e->getMessage());
+        }
+    }
+
+    public function updateStudentVoter(UpdateStudentVoterRequest $request, $id)
+    {
+        try {
+            $data = $this->studentService->updateStudentVoter($request, $id);
+
+            $result = new SubmitStudentVoterResource($data, 'Success update student voter');
 
             return $this->respond($result);
         } catch (\Exception $e) {

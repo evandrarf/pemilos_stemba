@@ -9,7 +9,7 @@ import VFilter from "@/components/VFilter/index.vue";
 const searchValue = ref("");
 const filter = ref({});
 const filterClass = ref();
-// const filterRole = ref();
+const filterStatus = ref();
 // const sortByNameOptions = ref([
 //     {
 //         label: "Ascending",
@@ -31,8 +31,8 @@ const applyFilter = () => {
 
 const clearFilter = () => {
     filter.value = ref({});
-    filterDesignation.value.clearSelected();
-    filterRole.value.clearSelected();
+    filterClass.value.clearSelected();
+    filterStatus.value.clearSelected();
     emit("clear", filter.value);
 };
 
@@ -80,18 +80,18 @@ const emit = defineEmits(["search", "apply", "clear"]);
     </VInput>
     <VFilter align="right" @apply="applyFilter" @clear="clearFilter">
         <div class="grid grid-cols-2 gap-3 px-4 pb-4 pt-1.5">
-            <div>
+            <!-- <div>
                 <div
                     class="text-xs font-semibold text-slate-400 uppercase mb-1"
                 >
                     Sort By Name
                 </div>
-                <!-- <VRadio
+                <VRadio
                     name="minimum-value"
                     v-model="filter.sort_by_name"
                     :options="sortByNameOptions"
-                /> -->
-            </div>
+                />
+            </div> -->
             <div>
                 <div
                     class="text-xs font-semibold text-slate-400 uppercase mb-1"
@@ -112,13 +112,13 @@ const emit = defineEmits(["search", "apply", "clear"]);
                 >
                     Filter by Status
                 </div>
-                <!-- <VSelect
-                    placeholder="Select Role"
-                    v-model="filter.filter_role"
-                    :options="additional.role_list"
+                <VSelect
+                    placeholder="Select status"
+                    v-model="filter.filter_status"
+                    :options="additional.status_list"
                     :clearable="false"
-                    ref="filterRole"
-                /> -->
+                    ref="filterStatus"
+                />
             </div>
         </div>
     </VFilter>

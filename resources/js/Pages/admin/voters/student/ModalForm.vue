@@ -72,11 +72,11 @@ const createStudentVoter = async () => {
         });
 };
 
-const updateCandidate = async () => {
+const updateStudentVoter = async () => {
     isLoading.value = true;
 
     axios
-        .put(route("candidates.update", form.value.id), { ...form.value })
+        .put(route("voters.students.update", form.value.id), { ...form.value })
         .then((res) => {
             emit("success");
             emit("close");
@@ -255,7 +255,9 @@ watch(
                     :label="updateAction ? 'Update' : 'Create'"
                     :isLoading="isLoading"
                     @click="
-                        updateAction ? updateCandidate() : createStudentVoter()
+                        updateAction
+                            ? updateStudentVoter()
+                            : createStudentVoter()
                     "
                 />
             </div>

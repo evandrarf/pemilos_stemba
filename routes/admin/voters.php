@@ -16,5 +16,6 @@ Route::prefix('voters')->name('voters.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/getdata', 'getData')->name('getdata');
         Route::post('/create', 'createStudentVoter')->name('create');
+        Route::put('/update/{id}', 'updateStudentVoter')->name('update');
     });
 });

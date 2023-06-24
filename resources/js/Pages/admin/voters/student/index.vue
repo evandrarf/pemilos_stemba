@@ -68,6 +68,7 @@ const breadcrumb = [
 const applyFilter = (data) => {
     filter.value = data;
     isLoading.value = true;
+    // console.log(data);
     getData(1);
 };
 
@@ -119,6 +120,12 @@ const handleCloseModalForm = () => {
 const handleSuccess = () => {
     isLoading.value = true;
     getData(pagination.value.current_page);
+};
+
+const handleEditStudentVoter = (data) => {
+    itemSelected.value = { ...data };
+    openModalForm.value = true;
+    updateAction.value = true;
 };
 
 onMounted(() => {
@@ -222,7 +229,7 @@ onMounted(() => {
                     >
                         <li
                             class="cursor-pointer hover:bg-slate-100"
-                            @click="handleEditCandidate(data)"
+                            @click="handleEditStudentVoter(data)"
                         >
                             <div class="flex items-center space-x-2 p-3">
                                 <span>
