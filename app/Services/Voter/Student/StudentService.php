@@ -3,15 +3,22 @@
 namespace App\Services\Voter\Student;
 
 use App\Actions\Utility\GeneratePassword;
+use App\Actions\Utility\PaginateCollection;
 use App\Models\Voter;
 
 class StudentService
 {
     public function getData()
     {
-        $data = Voter::where('type', 'student')->paginate(10);
+        // $data = Voter::where('type', 'student')->get()->sortBy('class');
 
-        return $data;
+        $data = Voter::where('type', 'student')->orderBy('class')->get();
+
+        $paginate = new PaginateCollection();
+
+        $result = $paginate->handle($data, 10);
+
+        return $result;
     }
 
     public function createStudentVoter($request)
