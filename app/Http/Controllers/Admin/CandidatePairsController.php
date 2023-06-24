@@ -74,4 +74,17 @@ class CandidatePairsController extends Controller
             return $this->exceptionError($e->getMessage());
         }
     }
+
+    public function deleteCandidatePair($id)
+    {
+        try {
+            $data = $this->candidatePairService->deleteCandidatePair($id);
+
+            $result = new SubmitCandidatePairResource($data, 'Candidate Pair deleted successfully');
+
+            return $this->respond($result);
+        } catch (\Exception $e) {
+            return $this->exceptionError($e->getMessage());
+        }
+    }
 }

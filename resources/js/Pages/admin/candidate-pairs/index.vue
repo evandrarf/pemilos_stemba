@@ -7,7 +7,7 @@ export default {
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
 import { array, object, string } from "vue-types";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import { ref, onMounted, reactive } from "vue";
 import { notify } from "notiwind";
 import debounce from "@/composables/debounce";
@@ -148,41 +148,41 @@ const closeAlert = () => {
 const alertDelete = (data) => {
     openAlert.value = true;
     alertData.headerLabel = "Delete Candidate Pairs";
-    alertData.contentLabel = `Are you sure want to delete pair number ${data.number}?`;
+    alertData.contentLabel = `Are you sure want to delete candidate pair number ${data.number}?`;
     alertData.closeLabel = "Cancel";
     alertData.submitLabel = "Delete";
     itemSelected.value = { ...data };
 };
 
-const deleteCandidatePairs = () => {
-    // axios
-    //     .delete(route("candidates.delete", itemSelected.value.id))
-    //     .then((res) => {
-    //         notify(
-    //             {
-    //                 type: "success",
-    //                 group: "top",
-    //                 text: res.data.meta.message,
-    //             },
-    //             2500
-    //         );
-    //         isLoading.value = true;
-    //         getData(pagination.value.current_page);
-    //     })
-    //     .catch((res) => {
-    //         notify(
-    //             {
-    //                 type: "error",
-    //                 group: "top",
-    //                 text: res.response.data.message,
-    //             },
-    //             2500
-    //         );
-    //     })
-    //     .finally(() => {
-    //         openAlert.value = false;
-    //         // isLoading.value = false;
-    //     });
+const deleteCandidatePair = () => {
+    axios
+        .delete(route("candidate-pairs.delete", itemSelected.value.id))
+        .then((res) => {
+            notify(
+                {
+                    type: "success",
+                    group: "top",
+                    text: res.data.meta.message,
+                },
+                2500
+            );
+            isLoading.value = true;
+            form.value = ref({});
+            getData(pagination.value.current_page);
+        })
+        .catch((res) => {
+            notify(
+                {
+                    type: "error",
+                    group: "top",
+                    text: res.response.data.message,
+                },
+                2500
+            );
+        })
+        .finally(() => {
+            openAlert.value = false;
+        });
 };
 
 onMounted(() => {
@@ -336,7 +336,7 @@ onMounted(() => {
     <VAlert
         :open-dialog="openAlert"
         @closeAlert="closeAlert"
-        @submitAlert="deleteCandidate"
+        @submitAlert="deleteCandidatePair"
         type="danger"
         :headerLabel="alertData.headerLabel"
         :contentLabel="alertData.contentLabel"

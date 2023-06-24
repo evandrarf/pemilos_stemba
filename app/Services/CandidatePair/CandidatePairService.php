@@ -57,4 +57,17 @@ class CandidatePairService
 
         return $query;
     }
+
+    public function deleteCandidatePair($id)
+    {
+        $fileService = new FileService();
+
+        $query = CandidatePair::findOrFail($id);
+
+        if ($query->image) $fileService->deleteFileById($query->image);
+
+        $query->delete();
+
+        return $query;
+    }
 }
