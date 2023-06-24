@@ -24,12 +24,23 @@ class CreateCandidatePairRequest extends FormRequest
     public function rules()
     {
         return [
-            'chairman_id' => 'required|exists:candidates,id|different:vice_chairman_id',
-            'vice_chairman_id' => 'required|exists:candidates,id|different:chairman_id',
+            'chairman_id' => 'required|exists:candidates,id|different:vice_chairman_id|unique:candidate_pairs,chairman_id|unique:candidate_pairs,vice_chairman_id',
+            'vice_chairman_id' => 'required|exists:candidates,id|different:chairman_id|unique:candidate_pairs,chairman_id|unique:candidate_pairs,vice_chairman_id',
             'file' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'number' => 'required|integer|unique:candidate_pairs,number'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'chairman_id.unique' => 'These candidates already exist',
+            'vice_chairman_id.unique' => 'These candidates already exist',
+            'chairman_id.different' => 'The chairman and vice chairman must be different',
+            'vice_chairman_id.different' => 'The chairman and vice chairman must be different',
+            'number.unique' => 'The candidate number has already been taken',
         ];
     }
 }
