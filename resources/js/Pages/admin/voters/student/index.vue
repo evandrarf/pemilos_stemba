@@ -7,7 +7,7 @@ export default {
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
 import { array, object, string } from "vue-types";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import { ref, onMounted, reactive } from "vue";
 import { notify } from "notiwind";
 import debounce from "@/composables/debounce";
@@ -17,19 +17,26 @@ import VButton from "@/components/VButton/index.vue";
 import VDataTable from "@/components/VDataTable/index.vue";
 import VLoading from "@/components/VLoading/index.vue";
 import VEmpty from "@/components/src/icons/VEmpty.vue";
+import VFilter from "./Filter.vue";
 import VModalForm from "./ModalForm.vue";
 import VPagination from "@/components/VPagination/index.vue";
 import VDropdownEditMenu from "@/components/VDropdownEditMenu/index.vue";
 import VEdit from "@/components/src/icons/VEdit.vue";
 import VTrash from "@/components/src/icons/VTrash.vue";
 import VAlert from "@/components/VAlert/index.vue";
+import VBadge from "@/components/VBadge/index.vue";
 
 const props = defineProps({
     title: string(),
+    additional: object(),
 });
 
-const isLoading = ref(true);
+const filter = ref({});
 const query = ref([]);
+const isLoading = ref(true);
+const itemSelected = ref({});
+const openModalForm = ref(false);
+const updateAction = ref(false);
 const pagination = ref({
     count: "",
     current_page: "",
@@ -37,20 +44,36 @@ const pagination = ref({
     total: 0,
     total_pages: 1,
 });
-const openModalForm = ref(false);
-const updateAction = ref(false);
-const itemSelected = ref({});
-const openAlert = ref(false);
-const alertData = reactive({
-    headerLabel: "",
-    contentLabel: "",
-    closeLabel: "",
-    submitLabel: "",
-});
+
+const heads = ["No", "Name", "Class", "Username", "Password", "Status", ""];
+
+const breadcrumb = [
+    {
+        name: "Dashboard",
+        active: false,
+        to: route("dashboard.index"),
+    },
+    {
+        name: "Voters",
+        active: false,
+        to: route("voters.students.index"),
+    },
+    {
+        name: "Student",
+        active: true,
+        to: route("voters.students.index"),
+    },
+];
+
+const applyFilter = (data) => {
+    filter.value = data;
+    isLoading.value = true;
+    getData(1);
+};
 
 const getData = debounce(async (page) => {
     axios
-        .get(route("candidates.getdata"), {
+        .get(route("voters.students.getdata"), {
             params: {
                 page: page,
             },
@@ -74,20 +97,13 @@ const getData = debounce(async (page) => {
         });
 }, 500);
 
-const breadcrumb = [
-    {
-        name: "Dashboard",
-        active: false,
-        to: route("dashboard.index"),
-    },
-    {
-        name: "Candidates",
-        active: true,
-        to: route("candidates.index"),
-    },
-];
-
-const heads = ["No", "Name", "NIS", "Class", ""];
+const getStatusValue = (data) => {
+    if (data === "Done") {
+        return "success";
+    } else {
+        return "danger";
+    }
+};
 
 const handleAddModalForm = () => {
     openModalForm.value = true;
@@ -105,68 +121,6 @@ const handleSuccess = () => {
     getData(pagination.value.current_page);
 };
 
-const nextPaginate = () => {
-    pagination.value.current_page += 1;
-    isLoading.value = true;
-    getData(pagination.value.current_page);
-};
-
-const previousPaginate = () => {
-    pagination.value.current_page -= 1;
-    isLoading.value = true;
-    getData(pagination.value.current_page);
-};
-
-const handleEditCandidate = (data) => {
-    itemSelected.value = { ...data };
-    openModalForm.value = true;
-    updateAction.value = true;
-};
-
-const closeAlert = () => {
-    openAlert.value = false;
-};
-
-const alertDelete = (data) => {
-    openAlert.value = true;
-    alertData.headerLabel = "Delete Candidate";
-    alertData.contentLabel = `Are you sure want to delete ${data.name}?`;
-    alertData.closeLabel = "Cancel";
-    alertData.submitLabel = "Delete";
-    itemSelected.value = { ...data };
-};
-
-const deleteCandidate = () => {
-    axios
-        .delete(route("candidates.delete", itemSelected.value.id))
-        .then((res) => {
-            notify(
-                {
-                    type: "success",
-                    group: "top",
-                    text: res.data.meta.message,
-                },
-                2500
-            );
-            isLoading.value = true;
-            getData(pagination.value.current_page);
-        })
-        .catch((res) => {
-            notify(
-                {
-                    type: "error",
-                    group: "top",
-                    text: res.response.data.message,
-                },
-                2500
-            );
-        })
-        .finally(() => {
-            openAlert.value = false;
-            // isLoading.value = false;
-        });
-};
-
 onMounted(() => {
     getData(1);
 });
@@ -176,16 +130,17 @@ onMounted(() => {
     <Head :title="title" />
     <VBreadcrumb :routes="breadcrumb" />
     <div class="mb-4 sm:mb-6 flex justify-between items-center">
-        <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Candidate</h1>
+        <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">
+            Student Voter Data
+        </h1>
     </div>
-
     <div
         class="bg-white shadow-lg rounded-sm border border-slate-200"
         :class="isLoading && 'min-h-[40vh] sm:min-h-[50vh]'"
     >
         <header class="block justify-between items-center sm:flex py-6 px-4">
             <h2 class="font-semibold text-slate-800">
-                All Candidates
+                All Student Voters
                 <span class="text-slate-400 !font-medium ml">{{
                     pagination.total
                 }}</span>
@@ -193,15 +148,26 @@ onMounted(() => {
             <div
                 class="mt-3 sm:mt-0 flex space-x-2 sm:justify-between justify-end"
             >
+                <VFilter
+                    @search="searchHandle"
+                    @apply="applyFilter"
+                    @clear="clearFilter"
+                    :additional="additional"
+                />
                 <VButton
-                    label="Add Candidate"
+                    label="Add Student Voter"
                     type="primary"
                     @click="handleAddModalForm"
                     class="mt-auto"
                 />
             </div>
         </header>
-        <VDataTable :heads="heads" :isLoading="isLoading">
+        <VDataTable
+            :heads="heads"
+            :isLoading="isLoading"
+            :freezeTable="false"
+            head-center
+        >
             <tr v-if="isLoading">
                 <td
                     class="h-[100%] overflow-hidden my-2"
@@ -233,10 +199,20 @@ onMounted(() => {
                     {{ data.name }}
                 </td>
                 <td class="px-4 whitespace-nowrap h-16">
-                    {{ data.nis }}
+                    {{ data.class }}
                 </td>
                 <td class="px-4 whitespace-nowrap h-16">
-                    {{ data.class }}
+                    {{ data.username }}
+                </td>
+                <td class="px-4 whitespace-nowrap h-16">
+                    {{ data.password }}
+                </td>
+                <td class="px-4 whitespace-nowrap h-16">
+                    <VBadge
+                        :text="data.status"
+                        :color="getStatusValue(data.status)"
+                        size="sm"
+                    />
                 </td>
                 <td class="px-4 whitespace-nowrap h-16">
                     <VDropdownEditMenu
@@ -270,13 +246,6 @@ onMounted(() => {
                 </td>
             </tr>
         </VDataTable>
-        <div class="px-4 py-6">
-            <VPagination
-                :pagination="pagination"
-                @next="nextPaginate"
-                @previous="previousPaginate"
-            />
-        </div>
     </div>
     <VModalForm
         :update-action="updateAction"
@@ -284,15 +253,5 @@ onMounted(() => {
         :open-dialog="openModalForm"
         @close="handleCloseModalForm"
         @success="handleSuccess"
-    />
-    <VAlert
-        :open-dialog="openAlert"
-        @closeAlert="closeAlert"
-        @submitAlert="deleteCandidate"
-        type="danger"
-        :headerLabel="alertData.headerLabel"
-        :contentLabel="alertData.contentLabel"
-        :closeLabel="alertData.closeLabel"
-        :submitLabel="alertData.submitLabel"
     />
 </template>

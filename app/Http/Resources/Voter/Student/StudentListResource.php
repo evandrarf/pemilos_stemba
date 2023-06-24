@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Voter\Student;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CandidateListResource extends ResourceCollection
+class StudentListResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,7 +18,7 @@ class CandidateListResource extends ResourceCollection
             'data' => $this->transformCollection($this->collection),
             'meta' => [
                 "success" => true,
-                "message" => "Success get all candidate lists",
+                "message" => "Success get all student voter lists",
                 'pagination' => $this->metaData()
             ]
         ];
@@ -29,8 +29,10 @@ class CandidateListResource extends ResourceCollection
         return [
             'id' => $data->id,
             'name' => $data->name,
-            'nis' => $data->nis,
             'class' => $data->class,
+            'username' => $data->username,
+            'password' => $data->password,
+            'status' => $data->status ? 'Done' : 'Not yet',
         ];
     }
 

@@ -26,6 +26,21 @@ class GetSidebarMenuAction
                 // 'can' => ['view_candidate']
             ],
             [
+                'text' => 'Voters',
+                'icon' => 'VUser',
+                'group' => true,
+                'submenu' => [
+                    [
+                        'text' => 'Student',
+                        'url' => route('voters.students.index'),
+                    ],
+                    [
+                        'text' => 'Teacher',
+                        'url' => route('voters.students.index'),
+                    ]
+                ]
+            ],
+            [
                 'text' => 'Settings',
                 'icon' => 'VSetting',
                 'group' => true,

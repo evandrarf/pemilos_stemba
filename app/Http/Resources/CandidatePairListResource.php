@@ -19,7 +19,7 @@ class CandidatePairListResource extends ResourceCollection
             'data' => $this->transformCollection($this->collection),
             'meta' => [
                 "success" => true,
-                "message" => "Success get all kajian lists",
+                "message" => "Success get all candidate pair lists",
                 'pagination' => $this->metaData()
             ]
         ];

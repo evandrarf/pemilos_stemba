@@ -7,6 +7,7 @@ import VDashboard from "@/components/src/icons/VDashboard.vue";
 import VSetting from "@/components/src/icons/VSetting.vue";
 import VPerson from "@/components/src/icons/VPerson.vue";
 import VUserGroup from "@/components/src/icons/VUserGroup.vue";
+import VUser from "@/components/src/icons/VUser.vue";
 import { array, bool } from "vue-types";
 import VSidebarGroup from "@/components/VSidebarGroup/index.vue";
 import { usePage } from "@inertiajs/inertia-vue3";
@@ -16,6 +17,7 @@ const icons = {
     VSetting,
     VPerson,
     VUserGroup,
+    VUser,
 };
 const props = defineProps({
     sidebarOpen: bool().def(false),
