@@ -2,6 +2,7 @@
 
 namespace App\Services\CandidatePair;
 
+use App\Actions\Utility\PaginateCollection;
 use App\Models\CandidatePair;
 use App\Services\FileService;
 
@@ -9,9 +10,13 @@ class CandidatePairService
 {
     public function getData()
     {
-        $query = CandidatePair::with('chairman', 'vice_chairman')->paginate(10);
+        $query = CandidatePair::with('chairman', 'vice_chairman')->get()->sortBy('number');
 
-        return $query;
+        $paginate = new PaginateCollection();
+
+        $result = $paginate->handle($query, 10);
+
+        return $result;
     }
 
     public function createCandidatePair($request)
