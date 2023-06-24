@@ -26,7 +26,7 @@ class StudentController extends Controller
     public function index()
     {
         $classOptions = $this->getClassOptions->handle();
-        $statusOptions = ['Done', 'Not yet'];
+        $statusOptions = [true => 'Done', false => 'Not yet'];
 
         return Inertia::render('admin/voters/student/index', [
             'title' => 'Pemilos | Student Voter',
@@ -37,17 +37,14 @@ class StudentController extends Controller
         ]);
     }
 
-    public function getData()
+    public function getData(Request $request)
     {
         try {
-            $data = $this->studentService->getData();
+            $data = $this->studentService->getData($request);
 
             $result = new StudentListResource($data);
 
             return $this->respond($result);
-            // $data = $this->getClassOptions->handle();
-
-            // return $this->respond($data);
         } catch (\Exception $e) {
             return $this->exceptionError($e->getMessage());
         }

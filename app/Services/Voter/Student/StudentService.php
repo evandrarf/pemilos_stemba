@@ -8,15 +8,33 @@ use App\Models\Voter;
 
 class StudentService
 {
-    public function getData()
+    public function getData($request)
     {
         // $data = Voter::where('type', 'student')->get()->sortBy('class');
 
-        $data = Voter::where('type', 'student')->orderBy('class')->get();
+        // $data = Voter::where('type', 'student')->orderBy('class')->get();
+
+        $filter_class = $request->filter_class;
+        $filter_status = $request->filter_status;
+        $search = $request->search;
+
+        $query = Voter::query();
+
+        $query->when(request('filter_status', false), function ($q) use ($filter_status) {
+            $q->where('status', $filter_status);
+        });
+
+        $query->when(request('filter_class', false), function ($q) use ($filter_class) {
+            $q->where('class', 'like', '%' . $filter_class . '%');
+        });
+
+        $query->when(request('search', false), function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%');
+        });
 
         $paginate = new PaginateCollection();
 
-        $result = $paginate->handle($data, 10);
+        $result = $paginate->handle($query->where('type', 'student')->orderBy('class')->get(), 10);
 
         return $result;
     }

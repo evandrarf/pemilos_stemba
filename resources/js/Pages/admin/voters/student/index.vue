@@ -35,6 +35,7 @@ const filter = ref({});
 const query = ref([]);
 const isLoading = ref(true);
 const openAlert = ref(false);
+const searchFilter = ref("");
 const itemSelected = ref({});
 const openModalForm = ref(false);
 const updateAction = ref(false);
@@ -72,18 +73,14 @@ const breadcrumb = [
     },
 ];
 
-const applyFilter = (data) => {
-    filter.value = data;
-    isLoading.value = true;
-    // console.log(data);
-    getData(1);
-};
-
 const getData = debounce(async (page) => {
     axios
         .get(route("voters.students.getdata"), {
             params: {
                 page: page,
+                filter_class: filter.value.filter_class,
+                filter_status: filter.value.filter_status,
+                search: searchFilter.value,
             },
         })
         .then((res) => {
@@ -142,6 +139,21 @@ const getStatusValue = (data) => {
     } else {
         return "danger";
     }
+};
+
+const searchHandle = (search) => {
+    searchFilter.value = search;
+    isLoading.value = true;
+    getData(1);
+};
+
+const applyFilter = (data) => {
+    filter.value = {
+        filter_status: data.filter_status,
+        filter_class: data.filter_class,
+    };
+    isLoading.value = true;
+    getData(1);
 };
 
 const handleAddModalForm = () => {
