@@ -36,4 +36,15 @@ class FileService
 
         return $file;
     }
+
+    public function deleteFileById($id)
+    {
+        $file = FileModel::findOrFail($id);
+
+        Storage::delete(str_replace('storage', 'public', $file->path_name));
+
+        $file->delete();
+
+        return $file;
+    }
 }
