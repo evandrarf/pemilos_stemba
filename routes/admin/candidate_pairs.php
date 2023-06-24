@@ -16,4 +16,5 @@ Route::controller(CandidatePairsController::class)->prefix('candidate-pairs')->n
     Route::get('/', 'index')->name('index');
     Route::get('/getdata', 'getData')->name('getdata');
     Route::post('/create', 'createCandidatePair')->name('create');
+    Route::post('/update/{id}', 'updateCandidatePair')->name('update');
 });

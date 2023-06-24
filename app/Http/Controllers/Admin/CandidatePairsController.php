@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Actions\Options\GetCandidateOptions;
 use App\Http\Requests\CreateCandidatePairRequest;
+use App\Http\Requests\UpdateCandidatePairRequest;
 use App\Http\Resources\CandidatePairListResource;
 use App\Http\Resources\SubmitCandidatePairResource;
 use App\Services\CandidatePair\CandidatePairService;
@@ -55,6 +56,19 @@ class CandidatePairsController extends Controller
             $data = $this->candidatePairService->createCandidatePair($request);
 
             $result = new SubmitCandidatePairResource($data, 'Candidate Pair created successfully');
+            return $this->respond($result);
+        } catch (\Exception $e) {
+            return $this->exceptionError($e->getMessage());
+        }
+    }
+
+    public function updateCandidatePair(UpdateCandidatePairRequest $request, $id)
+    {
+        try {
+            $data = $this->candidatePairService->updateCandidatePair($request, $id);
+
+            $result = new SubmitCandidatePairResource($data, 'Candidate Pair updated successfully');
+
             return $this->respond($result);
         } catch (\Exception $e) {
             return $this->exceptionError($e->getMessage());

@@ -34,6 +34,8 @@ const createCandidatePair = async () => {
         fd.append(key, form.value[key]);
     });
 
+    console.log(fd);
+
     axios
         .post(route("candidate-pairs.create"), fd)
         .then((res) => {
@@ -84,14 +86,31 @@ const createCandidatePair = async () => {
         });
 };
 
-const updateCandidate = async () => {
+const updateCandidatePair = async () => {
     isLoading.value = true;
+    const fd = new FormData();
+
+    if (form.value.file != null) {
+        fd.append("file", form.value.file, form.value.file.name);
+    }
+
+    Object.keys(form.value).forEach((key) => {
+        fd.append(key, form.value[key]);
+    });
+
+    // console.log(fd);
+
+    // for (var pair of fd.entries()) {
+    //     console.log(pair[0] + ", " + pair[1]);
+    // }
 
     axios
-        .put(route("candidates.update", form.value.id), { ...form.value })
+        .post(route("candidate-pairs.update", form.value.id), fd)
         .then((res) => {
             emit("success");
             emit("close");
+            form.value = ref({});
+
             notify(
                 {
                     type: "success",
@@ -268,7 +287,9 @@ watch(
                     :label="updateAction ? 'Update' : 'Create'"
                     :isLoading="isLoading"
                     @click="
-                        updateAction ? updateCandidate() : createCandidatePair()
+                        updateAction
+                            ? updateCandidatePair()
+                            : createCandidatePair()
                     "
                 />
             </div>

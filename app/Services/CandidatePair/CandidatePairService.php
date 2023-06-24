@@ -35,4 +35,26 @@ class CandidatePairService
 
         return $query;
     }
+
+    public function updateCandidatePair($request, $id)
+    {
+        $fileService = new FileService();
+
+        $request_file = $request->file('file');
+
+        $data = $request->validated();
+
+        $file = $request_file ? $fileService->uploadFile($data['file']) : null;
+
+        $query = CandidatePair::where('id', $id)->update([
+            'chairman_id' => $data['chairman_id'],
+            'vice_chairman_id' => $data['vice_chairman_id'],
+            'image' => $file->id ?? $data['file_id'] ?? null,
+            'vision' => $data['vision'] ?? null,
+            'mission' => $data['mission'] ?? null,
+            'number' => $data['number'],
+        ]);
+
+        return $query;
+    }
 }

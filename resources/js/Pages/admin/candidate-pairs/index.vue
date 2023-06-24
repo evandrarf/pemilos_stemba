@@ -128,7 +128,15 @@ const previousPaginate = () => {
 };
 
 const handleEditCandidatePairs = (data) => {
-    itemSelected.value = { ...data };
+    itemSelected.value = {
+        id: data.id,
+        chairman_id: data.chairman.id,
+        vice_chairman_id: data.vice_chairman.id,
+        number: data.number,
+        vision: data.vision,
+        mission: data.mission,
+        file_id: data.file_id,
+    };
     openModalForm.value = true;
     updateAction.value = true;
 };
@@ -240,18 +248,20 @@ onMounted(() => {
                     </div>
                 </td>
             </tr>
-            <tr v-for="(data, index) in query" :key="index" v-else>
-                <td class="px-4 whitespace-nowrap h-16">
+            <tr v-for="(data, index) in query" class="my-2" :key="index" v-else>
+                <td class="px-4 whitespace-nowrap h-16 fixed-left">
                     {{
                         (parseInt(pagination.current_page) - 1) * 10 +
                         (index + 1)
                     }}
                 </td>
-                <td class="px-4 whitespace-nowrap flex justify-center">
+                <td
+                    class="px-4 whitespace-nowrap flex justify-center items-center w-40"
+                >
                     <img
                         :src="data.image"
                         :alt="'Candidate ' + data.number"
-                        class="w-40"
+                        class="w-40 align-middle"
                     />
                 </td>
                 <td class="px-4 whitespace-nowrap">
@@ -263,15 +273,17 @@ onMounted(() => {
                 <td class="px-4 whitespace-nowrap">
                     {{ data.number }}
                 </td>
-                <td class="px-4 whitespace-nowrap">
-                    <p class="max-w-md w-max">
+                <td class="px-4">
+                    <p class="max-w-md w-max" v-if="data.vision">
                         {{ data.vision }}
                     </p>
+                    <span v-else>Belum ada visi</span>
                 </td>
-                <td class="px-4 whitespace-nowrap">
-                    <p class="max-w-md w-max">
+                <td class="px-4">
+                    <p class="max-w-md w-max" v-if="data.mission">
                         {{ data.mission }}
                     </p>
+                    <span v-else>Belum ada misi</span>
                 </td>
                 <td class="px-4 whitespace-nowrap h-16">
                     <VDropdownEditMenu
@@ -281,7 +293,7 @@ onMounted(() => {
                     >
                         <li
                             class="cursor-pointer hover:bg-slate-100"
-                            @click="handleEditCandidate(data)"
+                            @click="handleEditCandidatePairs(data)"
                         >
                             <div class="flex items-center space-x-2 p-3">
                                 <span>

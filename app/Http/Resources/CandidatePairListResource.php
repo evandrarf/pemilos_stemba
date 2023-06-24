@@ -33,9 +33,10 @@ class CandidatePairListResource extends ResourceCollection
             'id' => $data->id,
             'chairman' => $data->chairman,
             'vice_chairman' => $data->vice_chairman,
-            'vision' => $data->vision ? $data->vision : 'Belum ada visi',
-            'mission' => $data->mission ? $data->mission : 'Belum ada misi',
+            'vision' => $data->vision ?? '',
+            'mission' => $data->mission ?? '',
             'number' => $data->number,
+            'file_id' => $data->image ?? null,
             'image' => $data->image ? $getFile->handle($data->image)->full_path : asset('img/default.png'),
         ];
     }
