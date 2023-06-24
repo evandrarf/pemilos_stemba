@@ -63,4 +63,11 @@ class StudentService
 
         return $query;
     }
+
+    public function deleteStudentVoter($id)
+    {
+        $query = Voter::where('id', $id)->delete();
+
+        return $query;
+    }
 }

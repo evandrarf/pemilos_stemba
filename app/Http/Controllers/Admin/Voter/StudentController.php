@@ -78,4 +78,17 @@ class StudentController extends Controller
             return $this->exceptionError($e->getMessage());
         }
     }
+
+    public function deleteStudentVoter($id)
+    {
+        try {
+            $data = $this->studentService->deleteStudentVoter($id);
+
+            $result = new SubmitStudentVoterResource($data, 'Success delete student voter');
+
+            return $this->respond($result);
+        } catch (\Exception $e) {
+            return $this->exceptionError($e->getMessage());
+        }
+    }
 }

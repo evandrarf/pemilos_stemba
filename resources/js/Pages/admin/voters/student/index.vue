@@ -34,9 +34,16 @@ const props = defineProps({
 const filter = ref({});
 const query = ref([]);
 const isLoading = ref(true);
+const openAlert = ref(false);
 const itemSelected = ref({});
 const openModalForm = ref(false);
 const updateAction = ref(false);
+const alertData = reactive({
+    headerLabel: "",
+    contentLabel: "",
+    closeLabel: "",
+    submitLabel: "",
+});
 const pagination = ref({
     count: "",
     current_page: "",
@@ -98,6 +105,37 @@ const getData = debounce(async (page) => {
         });
 }, 500);
 
+const deleteStudentVoter = () => {
+    axios
+        .delete(route("voters.students.delete", itemSelected.value.id))
+        .then((res) => {
+            notify(
+                {
+                    type: "success",
+                    group: "top",
+                    text: res.data.meta.message,
+                },
+                2500
+            );
+            isLoading.value = true;
+            getData(pagination.value.current_page);
+        })
+        .catch((res) => {
+            notify(
+                {
+                    type: "error",
+                    group: "top",
+                    text: res.response.data.message,
+                },
+                2500
+            );
+        })
+        .finally(() => {
+            openAlert.value = false;
+            // isLoading.value = false;
+        });
+};
+
 const getStatusValue = (data) => {
     if (data === "Done") {
         return "success";
@@ -126,6 +164,19 @@ const handleEditStudentVoter = (data) => {
     itemSelected.value = { ...data };
     openModalForm.value = true;
     updateAction.value = true;
+};
+
+const alertDelete = (data) => {
+    openAlert.value = true;
+    alertData.headerLabel = "Delete Student";
+    alertData.contentLabel = `Are you sure want to delete ${data.name}?`;
+    alertData.closeLabel = "Cancel";
+    alertData.submitLabel = "Delete";
+    itemSelected.value = { ...data };
+};
+
+const closeAlert = () => {
+    openAlert.value = false;
 };
 
 onMounted(() => {
@@ -260,5 +311,15 @@ onMounted(() => {
         :open-dialog="openModalForm"
         @close="handleCloseModalForm"
         @success="handleSuccess"
+    />
+    <VAlert
+        :open-dialog="openAlert"
+        @closeAlert="closeAlert"
+        @submitAlert="deleteStudentVoter"
+        type="danger"
+        :headerLabel="alertData.headerLabel"
+        :contentLabel="alertData.contentLabel"
+        :closeLabel="alertData.closeLabel"
+        :submitLabel="alertData.submitLabel"
     />
 </template>
