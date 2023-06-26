@@ -4,6 +4,8 @@ namespace App\Services\Voter\Student;
 
 use App\Actions\Utility\GeneratePassword;
 use App\Actions\Utility\PaginateCollection;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentVoterImport;
 use App\Models\Voter;
 
 class StudentService
@@ -87,5 +89,14 @@ class StudentService
         $query = Voter::where('id', $id)->delete();
 
         return $query;
+    }
+
+    public function importStudentVoter($request)
+    {
+        $file = $request->file('file');
+
+        Excel::import(new StudentVoterImport, $file);
+
+        return true;
     }
 }

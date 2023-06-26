@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Settings\RoleManagementController;
-
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

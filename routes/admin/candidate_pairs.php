@@ -2,6 +2,7 @@
 
 // use App\Http\Controllers\Admin\CandidatesController;
 use App\Http\Controllers\Admin\CandidatePairsController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

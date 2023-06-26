@@ -56,7 +56,10 @@ const emit = defineEmits(["clear", "apply"]);
                             <VButton
                                 label="Clear"
                                 type="default"
-                                @click="$emit('clear')"
+                                @click="
+                                    dropdownOpen = false;
+                                    $emit('clear');
+                                "
                                 size="small"
                             />
                             <VButton

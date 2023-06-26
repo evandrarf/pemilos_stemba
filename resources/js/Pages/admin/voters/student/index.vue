@@ -25,6 +25,7 @@ import VEdit from "@/components/src/icons/VEdit.vue";
 import VTrash from "@/components/src/icons/VTrash.vue";
 import VAlert from "@/components/VAlert/index.vue";
 import VBadge from "@/components/VBadge/index.vue";
+import VFileExport from "@/components/src/icons/VFileExport.vue";
 
 const props = defineProps({
     title: string(),
@@ -39,6 +40,7 @@ const searchFilter = ref("");
 const itemSelected = ref({});
 const openModalForm = ref(false);
 const updateAction = ref(false);
+const step = ref(1);
 const alertData = reactive({
     headerLabel: "",
     contentLabel: "",
@@ -156,9 +158,16 @@ const applyFilter = (data) => {
     getData(1);
 };
 
+const handleImportModalForm = () => {
+    openModalForm.value = true;
+    updateAction.value = false;
+    step.value = 2;
+};
+
 const handleAddModalForm = () => {
     openModalForm.value = true;
     updateAction.value = false;
+    step.value = 1;
 };
 
 const handleCloseModalForm = () => {
@@ -187,8 +196,30 @@ const alertDelete = (data) => {
     itemSelected.value = { ...data };
 };
 
+const nextPaginate = () => {
+    pagination.value.current_page += 1;
+    isLoading.value = true;
+    getData(pagination.value.current_page);
+};
+
+const previousPaginate = () => {
+    pagination.value.current_page -= 1;
+    isLoading.value = true;
+    getData(pagination.value.current_page);
+};
+
 const closeAlert = () => {
     openAlert.value = false;
+};
+
+// const handleExportData = () => {
+//     axios.get(route)
+// }
+
+const clearFilter = () => {
+    isLoading.value = true;
+    filter.value = ref({});
+    getData(1);
 };
 
 onMounted(() => {
@@ -203,6 +234,30 @@ onMounted(() => {
         <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">
             Student Voter Data
         </h1>
+        <div class="flex gap-2">
+            <VButton
+                label="Import"
+                type="success"
+                icon="VFileImport"
+                @click="handleImportModalForm"
+                class="mt-auto"
+            />
+            <a
+                :href="route('voters.students.export')"
+                class="bg-success hover:bg-success-hover text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed shadow-none btn"
+                :disabled="isLoading | disabled"
+            >
+                <VFileExport class="mr-1" />
+                Export
+            </a>
+            <!-- <VButton
+                label="Export"
+                type="success"
+                icon="VFileExport"
+                @click="handleExportData"
+                class="mt-auto"
+            /> -->
+        </div>
     </div>
     <div
         class="bg-white shadow-lg rounded-sm border border-slate-200"
@@ -316,11 +371,19 @@ onMounted(() => {
                 </td>
             </tr>
         </VDataTable>
+        <div class="px-4 py-6">
+            <VPagination
+                :pagination="pagination"
+                @next="nextPaginate"
+                @previous="previousPaginate"
+            />
+        </div>
     </div>
     <VModalForm
         :update-action="updateAction"
         :data="itemSelected"
         :open-dialog="openModalForm"
+        :stepForm="step"
         @close="handleCloseModalForm"
         @success="handleSuccess"
     />

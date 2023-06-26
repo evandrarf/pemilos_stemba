@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CandidatesController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

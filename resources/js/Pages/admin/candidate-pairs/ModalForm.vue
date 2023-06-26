@@ -34,8 +34,6 @@ const createCandidatePair = async () => {
         fd.append(key, form.value[key]);
     });
 
-    console.log(fd);
-
     axios
         .post(route("candidate-pairs.create"), fd)
         .then((res) => {
