@@ -35,12 +35,14 @@ const props = defineProps({
 const filter = ref({});
 const query = ref([]);
 const isLoading = ref(true);
-const openAlert = ref(false);
+const openAlertDeleteStudent = ref(false);
+const openAlertDeleteAllStudent = ref(false);
 const searchFilter = ref("");
 const itemSelected = ref({});
 const openModalForm = ref(false);
 const updateAction = ref(false);
 const step = ref(1);
+const disabled = ref(true);
 const alertData = reactive({
     headerLabel: "",
     contentLabel: "",
@@ -88,6 +90,7 @@ const getData = debounce(async (page) => {
         .then((res) => {
             query.value = res.data.data;
             pagination.value = res.data.meta.pagination;
+            disabled.value = query.value.length === 0;
         })
         .catch((res) => {
             notify(
@@ -130,8 +133,38 @@ const deleteStudentVoter = () => {
             );
         })
         .finally(() => {
-            openAlert.value = false;
+            openAlertDeleteStudent.value = false;
             // isLoading.value = false;
+        });
+};
+
+const deleteAllStudentVoter = () => {
+    axios
+        .delete(route("voters.students.delete-all"))
+        .then((res) => {
+            notify(
+                {
+                    type: "success",
+                    group: "top",
+                    text: res.data.meta.message,
+                },
+                2500
+            );
+            isLoading.value = true;
+            getData(1);
+        })
+        .catch((res) => {
+            notify(
+                {
+                    type: "error",
+                    group: "top",
+                    text: res.response.data.message,
+                },
+                2500
+            );
+        })
+        .finally(() => {
+            openAlertDeleteAllStudent.value = false;
         });
 };
 
@@ -188,7 +221,7 @@ const handleEditStudentVoter = (data) => {
 };
 
 const alertDelete = (data) => {
-    openAlert.value = true;
+    openAlertDeleteStudent.value = true;
     alertData.headerLabel = "Delete Student";
     alertData.contentLabel = `Are you sure want to delete ${data.name}?`;
     alertData.closeLabel = "Cancel";
@@ -209,12 +242,43 @@ const previousPaginate = () => {
 };
 
 const closeAlert = () => {
-    openAlert.value = false;
+    openAlertDeleteAllStudent.value = false;
+    openAlertDeleteStudent.value = false;
 };
 
-// const handleExportData = () => {
-//     axios.get(route)
-// }
+const handleExportData = () => {
+    axios
+        .get(route("voters.students.export"), { responseType: "blob" })
+        .then((res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "student-voter.xlsx");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        })
+        .catch((res) => {
+            notify(
+                {
+                    type: "error",
+                    group: "top",
+                    text: "Export failed, please try again later",
+                },
+                2500
+            );
+        });
+};
+
+const handleDeleteAllStudentVoter = () => {
+    openAlertDeleteAllStudent.value = true;
+    alertData.headerLabel = "Delete All Student";
+    alertData.contentLabel =
+        "Are you sure want to delete all student? (This action cannot be undone)";
+    alertData.closeLabel = "Cancel";
+    alertData.submitLabel = "Delete";
+    itemSelected.value = { ...itemSelected };
+};
 
 const clearFilter = () => {
     isLoading.value = true;
@@ -242,21 +306,22 @@ onMounted(() => {
                 @click="handleImportModalForm"
                 class="mt-auto"
             />
-            <a
-                :href="route('voters.students.export')"
-                class="bg-success hover:bg-success-hover text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed shadow-none btn"
-                :disabled="isLoading | disabled"
-            >
-                <VFileExport class="mr-1" />
-                Export
-            </a>
-            <!-- <VButton
+            <VButton
                 label="Export"
                 type="success"
                 icon="VFileExport"
                 @click="handleExportData"
                 class="mt-auto"
-            /> -->
+                :disabled="isLoading | disabled"
+            />
+            <VButton
+                label="Delete All"
+                type="danger"
+                @click="handleDeleteAllStudentVoter"
+                icon="VTriangleExclamation"
+                class="mt-auto"
+                :disabled="isLoading | disabled"
+            />
         </div>
     </div>
     <div
@@ -388,7 +453,17 @@ onMounted(() => {
         @success="handleSuccess"
     />
     <VAlert
-        :open-dialog="openAlert"
+        :open-dialog="openAlertDeleteAllStudent"
+        @closeAlert="closeAlert"
+        @submitAlert="deleteAllStudentVoter"
+        type="danger"
+        :headerLabel="alertData.headerLabel"
+        :contentLabel="alertData.contentLabel"
+        :closeLabel="alertData.closeLabel"
+        :submitLabel="alertData.submitLabel"
+    />
+    <VAlert
+        :open-dialog="openAlertDeleteStudent"
         @closeAlert="closeAlert"
         @submitAlert="deleteStudentVoter"
         type="danger"

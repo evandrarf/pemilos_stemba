@@ -22,5 +22,6 @@ Route::prefix('voters')->name('voters.')->group(function () {
         Route::post('/import', 'importStudentVoter')->name('import');
         Route::get('/download-template', 'downloadTemplateStudentVoter')->name('download-template');
         Route::get('/export', 'exportStudentVoter')->name('export');
+        Route::delete('/delete-all', 'deleteAllStudentVoter')->name('delete-all');
     });
 });

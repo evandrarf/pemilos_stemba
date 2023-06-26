@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template>
     <font-awesome-icon
-        icon="fa-solid fa-file-export"
+        icon="fa-solid fa-triangle-exclamation"
         :class="{
             '!text-blue-500': isActive,
             'text-slate-400': disabled,

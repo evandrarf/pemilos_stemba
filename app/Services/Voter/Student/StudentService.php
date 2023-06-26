@@ -99,4 +99,11 @@ class StudentService
 
         return true;
     }
+
+    public function deleteAllStudentVoter()
+    {
+        $query = Voter::where('type', 'student')->delete();
+
+        return $query;
+    }
 }

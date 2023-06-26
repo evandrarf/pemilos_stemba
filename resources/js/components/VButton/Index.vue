@@ -3,12 +3,14 @@ import { string, oneOf, bool } from "vue-types";
 import VEdit from "@/components/src/icons/VEdit.vue";
 import VFileImport from "@/components/src/icons/VFileImport.vue";
 import VFileExport from "@/components/src/icons/VFileExport.vue";
+import VTriangleExclamation from "@/components/src/icons/VTriangleExclamation.vue";
 
 // List Icon Used
 const icons = {
     VEdit,
     VFileImport,
     VFileExport,
+    VTriangleExclamation,
 };
 
 const props = defineProps({
@@ -65,7 +67,7 @@ const emit = defineEmits(["click"]);
                     d="M8 16a7.928 7.928 0 01-3.428-.77l.857-1.807A6.006 6.006 0 0014 8c0-3.309-2.691-6-6-6a6.006 6.006 0 00-5.422 8.572l-1.806.859A7.929 7.929 0 010 8c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"
                 />
             </svg>
-            <component :is="icons[icon]" v-if="icon" />
+            <component :is="icons[icon]" :disabled="disabled" v-if="icon" />
             <span :class="[{ 'ml-2': isLoading || icon }]">{{
                 isLoading ? "Loading ..." : label
             }}</span>
