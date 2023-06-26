@@ -9,8 +9,10 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 
-class StudentVoterImport implements ToModel, WithHeadingRow, WithValidation
+class StudentVoterImport implements ToModel, WithHeadingRow, WithValidation, WithChunkReading, WithCalculatedFormulas
 {
     use Importable;
     /**
@@ -55,5 +57,10 @@ class StudentVoterImport implements ToModel, WithHeadingRow, WithValidation
             'username.required' => 'The username field is required.',
             'username.unique' => 'The username has already been taken.',
         ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
