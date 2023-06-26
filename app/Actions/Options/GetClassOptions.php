@@ -8,7 +8,7 @@ class GetClassOptions
 {
     public function handle()
     {
-        $classes = Voter::where('type', 'student')->select('class')->distinct()->get()->pluck('class');
+        $classes = Voter::where('type', 'student')->select('class')->distinct()->orderBy('class')->get()->pluck('class');
 
         return $classes;
     }
