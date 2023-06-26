@@ -122,7 +122,9 @@ class StudentController extends Controller
     public function exportStudentVoter()
     {
         try {
-            return Excel::download(new StudentVoterExport(), 'student-voter.xlsx');
+            $data = $this->studentService->exportStudentVoter();
+
+            return $data->download('student-voter.xlsx');
         } catch (\Exception $e) {
             return $this->exceptionError($e->getMessage());
         }

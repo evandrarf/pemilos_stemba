@@ -4,6 +4,7 @@ namespace App\Services\Voter\Student;
 
 use App\Actions\Utility\GeneratePassword;
 use App\Actions\Utility\PaginateCollection;
+use App\Exports\StudentVoterExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\StudentVoterImport;
 use App\Models\Voter;
@@ -98,6 +99,13 @@ class StudentService
         Excel::import(new StudentVoterImport, $file);
 
         return true;
+    }
+
+    public function exportStudentVoter()
+    {
+        $data = new StudentVoterExport();
+
+        return $data;
     }
 
     public function deleteAllStudentVoter()
