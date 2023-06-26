@@ -28,16 +28,21 @@ class StudentController extends Controller
 
     public function index()
     {
-        $classOptions = $this->getClassOptions->handle();
         $statusOptions = [true => 'Done', false => 'Not yet'];
 
         return Inertia::render('admin/voters/student/index', [
             'title' => 'Pemilos | Student Voter',
             'additional' => [
-                'class_list' => $classOptions,
                 'status_list' => $statusOptions
             ]
         ]);
+    }
+
+    public function getClassList()
+    {
+        $classOptions = $this->getClassOptions->handle();
+
+        return $this->respond($classOptions);
     }
 
     public function getData(Request $request)

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { any } from "vue-types";
+import { any, array } from "vue-types";
 import VInput from "@/components/VInput/index.vue";
 // import VRadio from "@/components/VRadio/index.vue";
 import VSelect from "@/components/VSelect/index.vue";
@@ -23,6 +23,7 @@ const filterStatus = ref();
 
 const props = defineProps({
     additional: any(),
+    classList: array(),
 });
 
 const applyFilter = () => {
@@ -101,7 +102,7 @@ const emit = defineEmits(["search", "apply", "clear"]);
                 <VSelect
                     placeholder="Select class"
                     v-model="filter.filter_class"
-                    :options="additional.class_list"
+                    :options="classList"
                     :clearable="false"
                     ref="filterClass"
                 />

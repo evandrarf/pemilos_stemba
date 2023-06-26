@@ -41,6 +41,7 @@ const searchFilter = ref("");
 const itemSelected = ref({});
 const openModalForm = ref(false);
 const updateAction = ref(false);
+const classList = ref([]);
 const step = ref(1);
 const disabled = ref(true);
 const alertData = reactive({
@@ -77,6 +78,24 @@ const breadcrumb = [
     },
 ];
 
+const getClassList = () => {
+    axios
+        .get(route("voters.students.get-class-list"))
+        .then((res) => {
+            classList.value = res.data;
+        })
+        .catch((res) => {
+            notify(
+                {
+                    type: "error",
+                    group: "top",
+                    text: res.response.data.message,
+                },
+                2500
+            );
+        });
+};
+
 const getData = debounce(async (page) => {
     axios
         .get(route("voters.students.getdata"), {
@@ -91,6 +110,8 @@ const getData = debounce(async (page) => {
             query.value = res.data.data;
             pagination.value = res.data.meta.pagination;
             disabled.value = query.value.length === 0;
+            getClassList();
+            console.log(classList.value);
         })
         .catch((res) => {
             notify(
@@ -343,6 +364,7 @@ onMounted(() => {
                     @apply="applyFilter"
                     @clear="clearFilter"
                     :additional="additional"
+                    :classList="classList"
                 />
                 <VButton
                     label="Add Student Voter"
