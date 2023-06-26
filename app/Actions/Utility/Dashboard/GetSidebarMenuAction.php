@@ -36,7 +36,7 @@ class GetSidebarMenuAction
                     ],
                     [
                         'text' => 'Teacher',
-                        'url' => route('voters.students.index'),
+                        'url' => route('voters.teachers.index'),
                     ]
                 ]
             ],

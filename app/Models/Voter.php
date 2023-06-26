@@ -13,5 +13,6 @@ class Voter extends Model
 
     protected $casts = [
         'status' => 'boolean',
+        'username' => 'string'
     ];
 }

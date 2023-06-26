@@ -10,6 +10,7 @@
 */
 
 use App\Http\Controllers\Admin\Voter\StudentController;
+use App\Http\Controllers\Admin\Voter\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('voters')->name('voters.')->group(function () {
@@ -24,5 +25,17 @@ Route::prefix('voters')->name('voters.')->group(function () {
         Route::get('/export', 'exportStudentVoter')->name('export');
         Route::delete('/delete-all', 'deleteAllStudentVoter')->name('delete-all');
         Route::get('/get-class-list', 'getClassList')->name('get-class-list');
+    });
+
+    Route::controller(TeacherController::class)->prefix('teachers')->name('teachers.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/getdata', 'getData')->name('getdata');
+        Route::post('/create', 'createTeacherVoter')->name('create');
+        Route::put('/update/{id}', 'updateTeacherVoter')->name('update');
+        Route::delete('/delete/{id}', 'deleteTeacherVoter')->name('delete');
+        Route::post('/import', 'importTeacherVoter')->name('import');
+        Route::get('/download-template', 'downloadTemplateTeacherVoter')->name('download-template');
+        Route::get('/export', 'exportTeacherVoter')->name('export');
+        Route::delete('/delete-all', 'deleteAllTeacherVoter')->name('delete-all');
     });
 });

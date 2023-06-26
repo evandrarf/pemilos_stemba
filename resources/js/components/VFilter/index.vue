@@ -6,6 +6,7 @@ import { string, bool } from "vue-types";
 const props = defineProps({
     align: string(),
     filterExists: bool().def(false),
+    minWidth: string().def("400px"),
 });
 
 const dropdownOpen = ref(false);
@@ -43,8 +44,14 @@ const emit = defineEmits(["clear", "apply"]);
         >
             <div
                 v-show="dropdownOpen"
-                class="origin-top-right z-20 absolute top-full min-w-[400px] bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-visible mt-2 w-max"
-                :class="align === 'right' ? 'right-0' : 'left-0'"
+                class="origin-top-right z-20 absolute top-full bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-visible mt-2 w-max"
+                :class="{
+                    'right-0': align === 'right',
+                    'left-0': align !== 'right',
+                    'min-w-[400px]': minWidth === '400px',
+                    'min-w-[300px]': minWidth === '300px',
+                    'min-w-[250px]': minWidth === '250px',
+                }"
             >
                 <div ref="dropdown">
                     <slot />
