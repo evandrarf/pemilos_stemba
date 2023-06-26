@@ -25,7 +25,8 @@ import VEdit from "@/components/src/icons/VEdit.vue";
 import VTrash from "@/components/src/icons/VTrash.vue";
 import VAlert from "@/components/VAlert/index.vue";
 import VBadge from "@/components/VBadge/index.vue";
-import VFileExport from "@/components/src/icons/VFileExport.vue";
+import VEyeOpen from "@/components/src/icons/VEyeOpen.vue";
+import VEyeClosed from "@/components/src/icons/VEyeClosed.vue";
 
 const props = defineProps({
     title: string(),
@@ -42,6 +43,7 @@ const itemSelected = ref({});
 const openModalForm = ref(false);
 const updateAction = ref(false);
 const classList = ref([]);
+const show = ref({});
 const step = ref(1);
 const disabled = ref(true);
 const alertData = reactive({
@@ -111,7 +113,11 @@ const getData = debounce(async (page) => {
             pagination.value = res.data.meta.pagination;
             disabled.value = query.value.length === 0;
             getClassList();
-            console.log(classList.value);
+            if (query.value.length > 0) {
+                show.value = query.value.map((item) => {
+                    return { [item.id]: false };
+                });
+            }
         })
         .catch((res) => {
             notify(
@@ -210,6 +216,10 @@ const applyFilter = (data) => {
     };
     isLoading.value = true;
     getData(1);
+};
+
+const handleShowPassword = (id) => {
+    show.value[id] = !show.value[id];
 };
 
 const handleImportModalForm = () => {
@@ -417,7 +427,19 @@ onMounted(() => {
                     {{ data.username }}
                 </td>
                 <td class="px-4 whitespace-nowrap h-16">
-                    {{ data.password }}
+                    <div class="flex items-center w-20 justify-between">
+                        <span v-if="!show[data.id]">********</span>
+                        <span v-else>
+                            {{ data.password }}
+                        </span>
+                        <span
+                            @click="handleShowPassword(data.id)"
+                            class="cursor-pointer"
+                        >
+                            <VEyeClosed v-if="!show[data.id]" />
+                            <VEyeOpen v-else />
+                        </span>
+                    </div>
                 </td>
                 <td class="px-4 whitespace-nowrap h-16">
                     <VBadge
