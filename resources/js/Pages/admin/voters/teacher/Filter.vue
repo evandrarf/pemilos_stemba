@@ -8,7 +8,6 @@ import VFilter from "@/components/VFilter/index.vue";
 
 const searchValue = ref("");
 const filter = ref({});
-const filterClass = ref();
 const filterStatus = ref();
 // const sortByNameOptions = ref([
 //     {
@@ -32,7 +31,6 @@ const applyFilter = () => {
 
 const clearFilter = () => {
     filter.value = ref({});
-    filterClass.value.clearSelected();
     filterStatus.value.clearSelected();
     emit("clear", filter.value);
 };
