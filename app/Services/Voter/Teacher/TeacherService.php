@@ -28,7 +28,7 @@ class TeacherService
 
         $paginate = new PaginateCollection();
 
-        $result = $paginate->handle($query->orderBy('name')->get(), 10);
+        $result = $paginate->handle($query->orderBy('name')->get(), 25);
 
         return $result;
     }
