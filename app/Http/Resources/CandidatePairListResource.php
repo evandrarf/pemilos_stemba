@@ -36,7 +36,6 @@ class CandidatePairListResource extends ResourceCollection
             'vision' => $data->vision ?? '',
             'mission' => $data->mission ?? '',
             'number' => $data->number,
-            'file_id' => $data->image ?? null,
             'image' => $data->image ? $getFile->handle($data->image)->full_path : asset('img/default.png'),
         ];
     }

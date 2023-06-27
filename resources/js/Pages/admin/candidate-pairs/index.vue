@@ -12,7 +12,7 @@ import { ref, onMounted, reactive } from "vue";
 import { notify } from "notiwind";
 import debounce from "@/composables/debounce";
 import AppLayout from "@/layouts/apps.vue";
-import VBreadcrumb from "@/components/VBreadCrumb/index.vue";
+import VBreadcrumb from "@/components/VBreadcrumb/index.vue";
 import VButton from "@/components/VButton/index.vue";
 import VDataTable from "@/components/VDataTable/index.vue";
 import VLoading from "@/components/VLoading/index.vue";
@@ -135,7 +135,6 @@ const handleEditCandidatePairs = (data) => {
         number: data.number,
         vision: data.vision,
         mission: data.mission,
-        file_id: data.file_id,
     };
     openModalForm.value = true;
     updateAction.value = true;
@@ -273,13 +272,13 @@ onMounted(() => {
                 <td class="px-4 whitespace-nowrap">
                     {{ data.number }}
                 </td>
-                <td class="px-4">
+                <td class="px-4 min-w-36">
                     <p class="max-w-md w-max" v-if="data.vision">
                         {{ data.vision }}
                     </p>
                     <span v-else>Belum ada visi</span>
                 </td>
-                <td class="px-4">
+                <td class="px-4 min-w-36">
                     <p class="max-w-md w-max" v-if="data.mission">
                         {{ data.mission }}
                     </p>

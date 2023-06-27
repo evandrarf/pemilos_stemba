@@ -51,14 +51,21 @@ class CandidatePairService
 
         $file = $request_file ? $fileService->uploadFile($data['file']) : null;
 
-        $query = CandidatePair::where('id', $id)->update([
-            'chairman_id' => $data['chairman_id'],
-            'vice_chairman_id' => $data['vice_chairman_id'],
-            'image' => $file->id ?? $data['file_id'] ?? null,
-            'vision' => $data['vision'] ?? null,
-            'mission' => $data['mission'] ?? null,
-            'number' => $data['number'],
-        ]);
+
+        $query = CandidatePair::findOrFail($id);
+
+        if ($file) {
+            $fileService->deleteFileById($query->image);
+        }
+
+        $query->chairman_id = $data['chairman_id'];
+        $query->vice_chairman_id = $data['vice_chairman_id'];
+        $query->image = $file->id ?? $query->image ?? null;
+        $query->vision = $data['vision'] ?? null;
+        $query->mission = $data['mission'] ?? null;
+        $query->number = $data['number'];
+
+        $query->save();
 
         return $query;
     }

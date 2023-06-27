@@ -29,7 +29,6 @@ class UpdateCandidatePairRequest extends FormRequest
             'vice_chairman_id' => ['required', 'exists:candidates,id', 'different:chairman_id', Rule::unique('candidate_pairs', 'chairman_id')->ignore($this->id), Rule::unique('candidate_pairs', 'vice_chairman_id')->ignore($this->id)],
             'file' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'vision' => 'nullable|string',
-            'file_id' => 'nullable|exists:files,id',
             'mission' => 'nullable|string',
             'number' => [Rule::unique('candidate_pairs', 'number')->ignore($this->id), 'required', 'numeric']
         ];
@@ -43,6 +42,8 @@ class UpdateCandidatePairRequest extends FormRequest
             'chairman_id.different' => 'The chairman and vice chairman must be different',
             'vice_chairman_id.different' => 'The chairman and vice chairman must be different',
             'number.unique' => 'The candidate number has already been taken',
+            'number.required' => 'The candidate number is required',
+            'number.numeric' => 'The candidate number must be a number',
         ];
     }
 }

@@ -4,7 +4,7 @@ import debounce from "@/composables/debounce";
 import { ref, watch } from "vue";
 import { notify } from "notiwind";
 import VDialog from "@/components/VDialog/index.vue";
-import { bool, object } from "vue-types";
+import { any, bool, object } from "vue-types";
 import VInput from "@/components/VInput/index.vue";
 import VButton from "@/components/VButton/index.vue";
 import VSelect from "@/components/VSelect/index.vue";
@@ -95,12 +95,6 @@ const updateCandidatePair = async () => {
     Object.keys(form.value).forEach((key) => {
         fd.append(key, form.value[key]);
     });
-
-    // console.log(fd);
-
-    // for (var pair of fd.entries()) {
-    //     console.log(pair[0] + ", " + pair[1]);
-    // }
 
     axios
         .post(route("candidate-pairs.update", form.value.id), fd)
