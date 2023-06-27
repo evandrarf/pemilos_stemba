@@ -368,7 +368,7 @@ onMounted(() => {
         <VDataTable
             :heads="heads"
             :isLoading="isLoading"
-            :freezeTable="false"
+            :freezeTable="true"
             head-center
         >
             <tr v-if="isLoading">
@@ -394,7 +394,7 @@ onMounted(() => {
             <tr v-for="(data, index) in query" :key="index" v-else>
                 <td class="px-4 whitespace-nowrap h-16">
                     {{
-                        (parseInt(pagination.current_page) - 1) * 10 +
+                        (parseInt(pagination.current_page) - 1) * 25 +
                         (index + 1)
                     }}
                 </td>
@@ -406,7 +406,9 @@ onMounted(() => {
                 </td>
                 <td class="px-4 whitespace-nowrap h-16">
                     <div class="flex items-center w-20 justify-between">
-                        <span v-if="!show[data.id]">********</span>
+                        <span v-if="!show[data.id]"
+                            >&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span
+                        >
                         <span v-else>
                             {{ data.password }}
                         </span>
