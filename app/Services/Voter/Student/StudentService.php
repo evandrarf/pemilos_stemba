@@ -13,15 +13,11 @@ class StudentService
 {
     public function getData($request)
     {
-        // $data = Voter::where('type', 'student')->get()->sortBy('class');
-
-        // $data = Voter::where('type', 'student')->orderBy('class')->get();
-
         $filter_class = $request->filter_class;
         $filter_status = $request->filter_status;
         $search = $request->search;
 
-        $query = Voter::query();
+        $query = Voter::where('type', 'student');
 
         $query->when(request('filter_status', false), function ($q) use ($filter_status) {
             $q->where('status', $filter_status);
@@ -37,7 +33,7 @@ class StudentService
 
         $paginate = new PaginateCollection();
 
-        $result = $paginate->handle($query->where('type', 'student')->orderBy('class')->get(), 10);
+        $result = $paginate->handle($query->orderBy('class')->get(), 25);
 
         return $result;
     }
