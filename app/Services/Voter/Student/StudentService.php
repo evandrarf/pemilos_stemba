@@ -33,7 +33,7 @@ class StudentService
 
         $paginate = new PaginateCollection();
 
-        $result = $paginate->handle($query->orderBy('class')->get(), 25);
+        $result = $paginate->handle($query->orderBy('class')->orderBy('name')->get(), 25);
 
         return $result;
     }
