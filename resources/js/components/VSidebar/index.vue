@@ -97,7 +97,7 @@ watch(sidebarExpanded, () => {
                     <Link
                         :class="sidebarExpanded ? 'block' : 'hidden'"
                         class="pl-2 transition-all duration-200"
-                        href="/"
+                        href="/admin"
                     >
                         <div class="flex justify-start w-full">
                             <div class="w-8 h-8 rounded-full bg-white">

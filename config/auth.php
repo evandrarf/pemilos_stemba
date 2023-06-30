@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'voter' => [
+            'driver' => 'session',
+            'provider' => 'voters',
+        ],
+
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
@@ -70,6 +75,11 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'voters' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Voter::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -97,7 +107,7 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
-        ],
+        ]
     ],
 
     /*

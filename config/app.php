@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\CustomAuthProvider;
+use App\Providers\CustomUserProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -200,6 +202,8 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+        // CustomAuthProvider::class,
+        // CustomUserProvider::class
     ],
 
     /*

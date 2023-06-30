@@ -17,9 +17,12 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
-Route::get('/', function () {
-    return redirect(route('dashboard.index'));
-});
+// Route::get('/', function() {
+
+// });
+
+require __DIR__ . '/voter/voter.php';
+
 
 Route::prefix('admin')->group(function () {
     Route::controller(LoginController::class)->group(function () {

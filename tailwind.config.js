@@ -45,6 +45,7 @@ module.exports = {
             },
             fontFamily: {
                 inter: ["Inter", "sans-serif"],
+                vcr: ["vcr_mono", "monospace"],
             },
             fontSize: {
                 xs: ["0.75rem", { lineHeight: "1.5" }],
@@ -109,7 +110,7 @@ module.exports = {
     plugins: [
         // eslint-disable-next-line global-require
         require("@tailwindcss/forms"),
-        require('@headlessui/tailwindcss'),
+        require("@headlessui/tailwindcss"),
         // add custom variant for expanding sidebar
         plugin(({ addVariant, e }) => {
             addVariant("sidebar-expanded", ({ modifySelectors, separator }) => {

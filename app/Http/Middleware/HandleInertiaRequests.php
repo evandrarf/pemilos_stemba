@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Menu\Builder;
 use App\Helpers\Menu\ModuleAccess;
 use App\Actions\Utility\Dashboard\GetSidebarMenuAction;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -52,6 +53,7 @@ class HandleInertiaRequests extends Middleware
             'modules' =>  $activeModules,
             'admin_data' =>  auth()->check() ? auth()->user() : null,
             'admin_role' =>  auth()->check() ? auth()->user()->getRoleNames() : null,
+            'user' => Auth::guard('voter')->check() ?  Auth::guard('voter')->user() : null,
         ]);
     }
 }

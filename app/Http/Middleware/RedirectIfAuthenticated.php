@@ -23,6 +23,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                if ($guard === 'voter') {
+                    return redirect()->route('user-voter.index');
+                }
                 return redirect()->route('dashboard.index');
             }
         }
