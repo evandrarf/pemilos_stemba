@@ -247,20 +247,20 @@ onMounted(() => {
                     </div>
                 </td>
             </tr>
-            <tr v-for="(data, index) in query" class="my-2" :key="index" v-else>
-                <td class="px-4 whitespace-nowrap h-16 fixed-left">
+            <tr v-for="(data, index) in query" class="h-56" :key="index" v-else>
+                <td class="px-4 whitespace-nowrap fixed-left">
                     {{
                         (parseInt(pagination.current_page) - 1) * 10 +
                         (index + 1)
                     }}
                 </td>
                 <td
-                    class="px-4 whitespace-nowrap flex justify-center items-center w-40"
+                    class="px-4 whitespace-nowrap flex justify-center items-center h-full w-40"
                 >
                     <img
                         :src="data.image"
                         :alt="'Candidate ' + data.number"
-                        class="w-40 align-middle"
+                        class="w-40"
                     />
                 </td>
                 <td class="px-4 whitespace-nowrap">
@@ -278,13 +278,13 @@ onMounted(() => {
                     </p>
                     <span v-else>Belum ada visi</span>
                 </td>
-                <td class="px-4 min-w-36">
+                <td class="px-4 min-w-36 h-56">
                     <p class="max-w-md w-max" v-if="data.mission">
                         {{ data.mission }}
                     </p>
                     <span v-else>Belum ada misi</span>
                 </td>
-                <td class="px-4 whitespace-nowrap h-16">
+                <td class="px-4 whitespace-nowrap">
                     <VDropdownEditMenu
                         class="relative inline-flex r-0"
                         :align="'right'"
