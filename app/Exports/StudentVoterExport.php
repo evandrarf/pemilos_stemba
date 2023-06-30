@@ -42,18 +42,19 @@ class StudentVoterExport extends StringValueBinder implements FromCollection, Wi
             'A' => 22,
             'B' => 13,
             "C" => 13,
-            'D' => 18
+            'D' => 18,
+            'E' => 22
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Name',
-            'Class',
+            'Nama',
+            'Kelas',
             'Username',
             'Password',
-            'Status'
+            'Status Memilih'
         ];
     }
 }

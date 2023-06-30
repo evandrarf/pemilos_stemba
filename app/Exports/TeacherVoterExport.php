@@ -46,10 +46,10 @@ class TeacherVoterExport extends StringValueBinder  implements FromCollection, W
     public function headings(): array
     {
         return [
-            'Name',
+            'Nama',
             'Username',
             'Password',
-            'Status'
+            'Status Memilih'
         ];
     }
 }
