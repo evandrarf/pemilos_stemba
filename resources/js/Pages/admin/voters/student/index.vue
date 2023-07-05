@@ -12,7 +12,7 @@ import { ref, onMounted, reactive } from "vue";
 import { notify } from "notiwind";
 import debounce from "@/composables/debounce";
 import AppLayout from "@/layouts/apps.vue";
-import VBreadcrumb from "@/components/VBreadCrumb/index.vue";
+import VBreadcrumb from "@/components/VBreadcrumb/index.vue";
 import VButton from "@/components/VButton/index.vue";
 import VDataTable from "@/components/VDataTable/index.vue";
 import VLoading from "@/components/VLoading/index.vue";
