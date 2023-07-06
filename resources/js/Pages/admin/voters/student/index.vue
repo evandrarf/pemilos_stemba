@@ -115,7 +115,7 @@ const getData = debounce(async (page) => {
             getClassList();
             if (query.value.length > 0) {
                 show.value = query.value.map((item) => {
-                    return { [item.id]: false };
+                    show.value[item.id] = false;
                 });
             }
         })
