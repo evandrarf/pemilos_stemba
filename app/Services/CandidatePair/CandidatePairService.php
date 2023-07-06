@@ -58,16 +58,15 @@ class CandidatePairService
 
         $file = $request_file ? $fileService->uploadFile($data['file']) : null;
 
-
         $query = CandidatePair::findOrFail($id);
 
-        if ($file) {
+        if ($file && $query->image) {
             $fileService->deleteFileById($query->image);
         }
 
         $query->chairman_id = $data['chairman_id'];
         $query->vice_chairman_id = $data['vice_chairman_id'];
-        $query->image = $file->id ?? $query->image ?? null;
+        $query->image = $file->id ?? null;
         $query->vision = $data['vision'] ?? null;
         $query->mission = $data['mission'] ?? null;
         $query->number = $data['number'];
