@@ -66,7 +66,7 @@ class CandidatePairService
 
         $query->chairman_id = $data['chairman_id'];
         $query->vice_chairman_id = $data['vice_chairman_id'];
-        $query->image = $file->id ?? null;
+        $query->image = $file->id ?? $query->image ?? null;
         $query->vision = $data['vision'] ?? null;
         $query->mission = $data['mission'] ?? null;
         $query->number = $data['number'];
