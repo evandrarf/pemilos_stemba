@@ -23,6 +23,8 @@ import VDropdownEditMenu from "@/components/VDropdownEditMenu/index.vue";
 import VEdit from "@/components/src/icons/VEdit.vue";
 import VTrash from "@/components/src/icons/VTrash.vue";
 import VAlert from "@/components/VAlert/index.vue";
+import VDetail from "@/components/src/icons/VDetail.vue";
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     title: string(),
@@ -94,8 +96,8 @@ const heads = [
     "Chairman",
     "Vice Chairman",
     "Candidate Number",
-    "Vision",
-    "Mission",
+    // "Vision",
+    // "Mission",
     "",
 ];
 
@@ -125,19 +127,6 @@ const previousPaginate = () => {
     pagination.value.current_page -= 1;
     isLoading.value = true;
     getData(pagination.value.current_page);
-};
-
-const handleEditCandidatePairs = (data) => {
-    itemSelected.value = {
-        id: data.id,
-        chairman_id: data.chairman.id,
-        vice_chairman_id: data.vice_chairman.id,
-        number: data.number,
-        vision: data.vision,
-        mission: data.mission,
-    };
-    openModalForm.value = true;
-    updateAction.value = true;
 };
 
 const closeAlert = () => {
@@ -184,6 +173,10 @@ const deleteCandidatePair = () => {
         });
 };
 
+const handleDetailCandidatePairs = ({ id }) => {
+    Inertia.visit(route("candidate-pairs.show", id));
+};
+
 onMounted(() => {
     getData(1);
 });
@@ -213,7 +206,7 @@ onMounted(() => {
                 class="mt-3 sm:mt-0 flex space-x-2 sm:justify-between justify-end"
             >
                 <VButton
-                    label="Add Candidate"
+                    label="Add Candidate Pairs"
                     type="primary"
                     @click="handleAddModalForm"
                     class="mt-auto"
@@ -223,8 +216,7 @@ onMounted(() => {
         <VDataTable
             :heads="heads"
             :isLoading="isLoading"
-            :freezeTable="true"
-            wrapperClass="!px-0"
+            :freezeTable="false"
             head-center
         >
             <tr v-if="isLoading">
@@ -247,21 +239,21 @@ onMounted(() => {
                     </div>
                 </td>
             </tr>
-            <tr v-for="(data, index) in query" class="h-56" :key="index" v-else>
+            <tr v-for="(data, index) in query" :key="index" v-else>
                 <td class="px-4 whitespace-nowrap fixed-left">
                     {{
                         (parseInt(pagination.current_page) - 1) * 10 +
                         (index + 1)
                     }}
                 </td>
-                <td
-                    class="px-4 whitespace-nowrap flex justify-center items-center h-full w-40"
-                >
-                    <img
-                        :src="data.image"
-                        :alt="'Candidate ' + data.number"
-                        class="w-40"
-                    />
+                <td class="px-4 whitespace-nowrap">
+                    <div class="flex justify-start items-center h-full my-4">
+                        <img
+                            :src="data.image"
+                            :alt="'Candidate ' + data.number"
+                            class="w-40"
+                        />
+                    </div>
                 </td>
                 <td class="px-4 whitespace-nowrap">
                     {{ data.chairman.name }}
@@ -272,7 +264,7 @@ onMounted(() => {
                 <td class="px-4 whitespace-nowrap">
                     {{ data.number }}
                 </td>
-                <td class="px-4 min-w-36">
+                <!-- <td class="px-4 min-w-36">
                     <p class="max-w-md w-max" v-if="data.vision">
                         {{ data.vision }}
                     </p>
@@ -283,7 +275,7 @@ onMounted(() => {
                         {{ data.mission }}
                     </p>
                     <span v-else>Belum ada misi</span>
-                </td>
+                </td> -->
                 <td class="px-4 whitespace-nowrap">
                     <VDropdownEditMenu
                         class="relative inline-flex r-0"
@@ -292,13 +284,13 @@ onMounted(() => {
                     >
                         <li
                             class="cursor-pointer hover:bg-slate-100"
-                            @click="handleEditCandidatePairs(data)"
+                            @click="handleDetailCandidatePairs(data)"
                         >
                             <div class="flex items-center space-x-2 p-3">
                                 <span>
-                                    <VEdit color="primary" />
+                                    <VDetail color="primary" />
                                 </span>
-                                <span>Edit</span>
+                                <span>Detail</span>
                             </div>
                         </li>
                         <li class="cursor-pointer hover:bg-slate-100">

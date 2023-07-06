@@ -21,6 +21,8 @@ class CandidatePairDetailResource extends JsonResource
             'id' => $this->id,
             'chairman' => $this->chairman->only('name', 'nis', 'class'),
             'vice_chairman' => $this->vice_chairman->only('name', 'nis', 'class'),
+            'chairman_id' => $this->chairman_id,
+            'vice_chairman_id' => $this->vice_chairman_id,
             'number' => $this->number,
             'vision' => $this->vision,
             'mission' => $this->mission,

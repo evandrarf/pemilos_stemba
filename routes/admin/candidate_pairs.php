@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(CandidatePairsController::class)->prefix('candidate-pairs')->name('candidate-pairs.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/getdata', 'getData')->name('getdata');
+    Route::get('{id}', 'show')->name('show');
     Route::post('/create', 'createCandidatePair')->name('create');
     Route::post('/update/{id}', 'updateCandidatePair')->name('update');
     Route::delete('/delete/{id}', 'deleteCandidatePair')->name('delete');

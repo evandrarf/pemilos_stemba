@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Actions\Options\GetCandidateOptions;
 use App\Http\Requests\CreateCandidatePairRequest;
 use App\Http\Requests\UpdateCandidatePairRequest;
+use App\Http\Resources\CandidatePairDetailResource;
 use App\Http\Resources\CandidatePairListResource;
 use App\Http\Resources\SubmitCandidatePairResource;
 use App\Services\CandidatePair\CandidatePairService;
@@ -44,6 +45,25 @@ class CandidatePairsController extends Controller
             $result = new CandidatePairListResource($data);
 
             return $this->respond($result);
+        } catch (\Exception $e) {
+            return $this->exceptionError($e->getMessage());
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $data = $this->candidatePairService->show($id);
+
+            $result = new CandidatePairDetailResource($data);
+
+            return Inertia::render('admin/candidate-pairs/detail/index', [
+                'title' => 'Candidate Pair Detail | Pemilos',
+                'additional' => [
+                    'candidate_list' => $this->getCandidateOptions->handle(),
+                    'data' => $result
+                ],
+            ]);
         } catch (\Exception $e) {
             return $this->exceptionError($e->getMessage());
         }

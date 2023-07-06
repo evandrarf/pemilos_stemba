@@ -19,6 +19,13 @@ class CandidatePairService
         return $result;
     }
 
+    public function show($id)
+    {
+        $query = CandidatePair::with('chairman', 'vice_chairman')->findOrFail($id);
+
+        return $query;
+    }
+
     public function createCandidatePair($request)
     {
         $fileService = new FileService();
