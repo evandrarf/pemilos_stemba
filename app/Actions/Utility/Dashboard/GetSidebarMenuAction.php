@@ -14,6 +14,11 @@ class GetSidebarMenuAction
                 'can'  => 'view_general_dashboard'
             ],
             [
+                'text' => 'Recapitulation',
+                'url' => route('recapitulation.index'),
+                'icon' => "VChartSimple",
+            ],
+            [
                 'text' => 'Candidate',
                 'url' => route('candidates.index'),
                 'icon' => 'VPerson',

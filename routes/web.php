@@ -57,5 +57,6 @@ Route::prefix('admin')->group(function () {
         require __DIR__ . '/admin/candidate_pairs.php';
         require __DIR__ . '/admin/voters.php';
         require __DIR__ . '/admin/settings.php';
+        require __DIR__ . '/admin/recapitulation.php';
     });
 });

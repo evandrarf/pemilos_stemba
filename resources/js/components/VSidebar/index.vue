@@ -10,6 +10,7 @@ import VUserGroup from "@/components/src/icons/VUserGroup.vue";
 import VUser from "@/components/src/icons/VUser.vue";
 import { array, bool } from "vue-types";
 import VSidebarGroup from "@/components/VSidebarGroup/index.vue";
+import VChartSimple from "@/components/src/icons/VChartSimple.vue";
 import { usePage } from "@inertiajs/inertia-vue3";
 
 const icons = {
@@ -18,6 +19,7 @@ const icons = {
     VPerson,
     VUserGroup,
     VUser,
+    VChartSimple,
 };
 const props = defineProps({
     sidebarOpen: bool().def(false),

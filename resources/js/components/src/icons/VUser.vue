@@ -2,14 +2,16 @@
 import { string } from "vue-types";
 
 const props = defineProps({
-    color: string().def("primary"),
+    color: string().def("text-slate-400"),
+    size: string().def(""),
 });
 </script>
 
 <template>
     <font-awesome-icon
         icon="fa-solid fa-user"
-        class="w-5 h-5 text-slate-400"
-        :class="isActive && '!text-blue-500'"
+        class=""
+        :class="{ '!text-blue-500': isActive, [color]: true }"
+        :size="size"
     />
 </template>
