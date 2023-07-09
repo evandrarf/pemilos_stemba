@@ -123,7 +123,7 @@ const handleOpenAlertLogout = () => {
                                     ></span>
                                 </span>
                             </div>
-                            <div class="flex flex-col w-full px-12 py-2">
+                            <div class="flex flex-col w-full px-6 py-2">
                                 <span
                                     >1. {{ data.chairman.name }} ({{
                                         data.chairman.class
