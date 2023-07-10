@@ -46,6 +46,49 @@ class PermissionSeeder extends Seeder
                     ],
                 ]
             ],
+            [
+                'group' => 'candidate_pairs',
+                'sub_group' => [
+                    [
+                        'name' => 'candidate_pairs',
+                        'permission' => [
+                            [
+                                'name' => 'view_candidate_pairs',
+                                'label' => 'View Candidate Pairs',
+                            ]
+                        ]
+                    ],
+                ]
+            ],
+            [
+                'group' => 'voters',
+                'sub_group' => [
+                    [
+                        'name' => 'voters',
+                        'permission' => [
+                            [
+                                'name' => 'view_voters',
+                                'label' => 'View Voters',
+                            ]
+                        ]
+                    ],
+                ]
+            ],
+
+            [
+                'group' => 'recapitulation',
+                'sub_group' => [
+                    [
+                        'name' => 'recapitulation',
+                        'permission' => [
+                            [
+                                'name' => 'view_recapitulation',
+                                'label' => 'View Recapitulation',
+                            ]
+                        ]
+                    ],
+                ]
+            ],
 
             // Setting Systems
             [

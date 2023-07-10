@@ -17,6 +17,7 @@ class GetSidebarMenuAction
                 'text' => 'Recapitulation',
                 'url' => route('recapitulation.index'),
                 'icon' => "VChartSimple",
+                'can' => 'view_recapitulation'
             ],
             [
                 'text' => 'Candidate',
@@ -28,12 +29,13 @@ class GetSidebarMenuAction
                 'text' => 'Candidate Pairs',
                 'url' => route('candidate-pairs.index'),
                 'icon' => 'VUserGroup',
-                // 'can' => ['view_candidate']
+                'can' => ['view_candidate_pairs']
             ],
             [
                 'text' => 'Voters',
                 'icon' => 'VUser',
                 'group' => true,
+                'can' => ['view_voters'],
                 'submenu' => [
                     [
                         'text' => 'Student',
