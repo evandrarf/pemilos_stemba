@@ -31,7 +31,7 @@ class VoterLoginController extends Controller
         if ($this->hasTooManyLoginAttempts($request)) {
             return response()->json([
                 "status" => 422,
-                "message" => "Sorry! Too many login attempts, please try again after 10 minutes",
+                "message" => "Terlalu banyak percobaan login, silahkan coba lagi nanti",
             ], 422);
         }
 
@@ -47,7 +47,7 @@ class VoterLoginController extends Controller
             $this->incrementLoginAttempts($request);
             return response()->json([
                 "status" => 422,
-                "message" => "Whoops! Login Error Occurred, Check Your Username And Password Again",
+                "message" => "Username atau password salah, silahkan coba lagi",
             ], 422);
         }
 
