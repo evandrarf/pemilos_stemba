@@ -12,7 +12,7 @@ import { string } from "vue-types";
 import VBreadcrumb from "@/components/VBreadcrumb/index.vue";
 import debounce from "@/composables/debounce";
 import axios from "axios";
-import VSummary from "./VSummary.vue";
+import VSummary from "./Summary.vue";
 import VVoterSummary from "./VoterSummary.vue";
 
 const summary = ref([]);
