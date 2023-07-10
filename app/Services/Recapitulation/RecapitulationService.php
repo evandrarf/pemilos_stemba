@@ -12,7 +12,7 @@ class RecapitulationService
     {
 
         $votes = Vote::query();
-        $query = CandidatePair::with('chairman', 'vice_chairman')->get()->map(function ($items) use ($votes) {
+        $query = CandidatePair::with('chairman', 'vice_chairman')->orderBy('number')->get()->map(function ($items) use ($votes) {
             $vote = Vote::where('candidate_pairs_id', $items->id)->count();
             return [
                 'candidate_pair' => $items,
