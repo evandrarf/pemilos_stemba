@@ -14,6 +14,7 @@ import debounce from "@/composables/debounce";
 import axios from "axios";
 import VSummary from "./Summary.vue";
 import VVoterSummary from "./VoterSummary.vue";
+import BarChart from "./BarChart.vue";
 
 const summary = ref([]);
 const summaryLoading = ref(true);
@@ -121,5 +122,8 @@ onMounted(() => {
             :span="2"
             @filter="handleFilter"
         />
+        <div class="col-span-4 mb-8">
+            <BarChart />
+        </div>
     </div>
 </template>
