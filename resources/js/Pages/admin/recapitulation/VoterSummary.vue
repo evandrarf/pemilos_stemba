@@ -53,7 +53,7 @@ watch(
                 @update:model-value="emit('filter', filter)"
             />
         </div>
-        <div v-if="dataLoading" class="flex mt-2">
+        <div v-if="dataLoading" class="flex mt-2 items-center h-3/5">
             <VLoading class="w-8 h-8" />
         </div>
         <div
