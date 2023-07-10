@@ -28,7 +28,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        $statusOptions = [true => 'Done', false => 'Not yet'];
+        $statusOptions = ['done' => 'Done', 'not-yet' => 'Not yet'];
 
         return Inertia::render('admin/voters/student/index', [
             'title' => 'Pemilos | Student Voter',

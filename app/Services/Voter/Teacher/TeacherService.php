@@ -19,7 +19,7 @@ class TeacherService
         $search = $request->search;
 
         $query->when(request('filter_status', false), function ($q) use ($filter_status) {
-            $q->where('status', $filter_status);
+            $q->where('status', $filter_status === 'done' ? true : false);
         });
 
         $query->when(request('search', false), function ($q) use ($search) {
