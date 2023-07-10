@@ -30,7 +30,7 @@ class RecapitulationService
 
             $voter = Voter::query();
 
-            $query = $voter->get()->groupBy('status')->map(function ($items, $status) use ($voter) {
+            $query = $voter->orderBy('status', "desc")->get()->groupBy('status')->map(function ($items, $status) use ($voter) {
                 $count = $items->count();
                 return [
                     'status' => $status ? 'Done' : 'Not yet',
@@ -46,7 +46,7 @@ class RecapitulationService
         } else {
             $voter = Voter::where('type', $request->type);
 
-            $query = $voter->get()->groupBy('status')->map(function ($items, $status) use ($voter) {
+            $query = $voter->orderBy('status', "desc")->get()->groupBy('status')->map(function ($items, $status) use ($voter) {
                 $count = $items->count();
                 return [
                     'status' => $status ? 'Done' : 'Not yet',
