@@ -71,11 +71,17 @@ const getSummary = debounce(async () => {
 
 const footer = (tooltipItems) => {
     return (
-        data.value[parseInt(tooltipItems[0].dataset.label.split(" ")[1]) - 1]
-            .candidate_pair.chairman.name +
+        data.value.find(
+            (item) =>
+                item.candidate_pair.number ==
+                parseInt(tooltipItems[0].dataset.label.split(" ")[1])
+        ).candidate_pair.chairman.name +
         "\n" +
-        data.value[parseInt(tooltipItems[0].dataset.label.split(" ")[1]) - 1]
-            .candidate_pair.vice_chairman.name
+        data.value.find(
+            (item) =>
+                item.candidate_pair.number ==
+                parseInt(tooltipItems[0].dataset.label.split(" ")[1])
+        ).candidate_pair.vice_chairman.name
     );
 };
 
