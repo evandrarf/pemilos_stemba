@@ -69,6 +69,16 @@ const getSummary = debounce(async () => {
         });
 });
 
+const footer = (tooltipItems) => {
+    return (
+        data.value[parseInt(tooltipItems[0].dataset.label.split(" ")[1]) - 1]
+            .candidate_pair.chairman.name +
+        "\n" +
+        data.value[parseInt(tooltipItems[0].dataset.label.split(" ")[1]) - 1]
+            .candidate_pair.vice_chairman.name
+    );
+};
+
 const getMax = (data) => {
     const max = data.reduce((a, b) => (a.count > b.count ? a : b)).count;
     return max > 0 ? max : 1;
@@ -96,6 +106,15 @@ const chartOptions = ref({
         colors: {
             enabled: true,
             forceOverride: true,
+        },
+        interaction: {
+            intersect: false,
+            mode: "index",
+        },
+        tooltip: {
+            callbacks: {
+                footer: footer,
+            },
         },
     },
     scales: {
