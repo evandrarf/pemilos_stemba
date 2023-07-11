@@ -37,7 +37,6 @@ const handleOpenAlertVote = () => {
 };
 
 const vote = () => {
-    // console.log(user.value.id);
     axios
         .post(route("user-voter.vote"), {
             candidate_pair_id: data.id,
