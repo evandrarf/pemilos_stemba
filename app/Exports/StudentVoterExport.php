@@ -97,7 +97,7 @@ class StudentVoterExport extends StringValueBinder implements FromCollection, Wi
             'Nama',
             'Kelas',
             'NIS',
-            'Status'
+            'Status Memilih'
         ];
 
         if ($this->with_password === 'yes') {
