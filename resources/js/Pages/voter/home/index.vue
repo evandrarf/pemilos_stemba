@@ -136,7 +136,10 @@ onMounted(() => {
                 class="flex mx-auto items-center h-full w-full"
                 :class="query.length < 3 ? 'justify-center' : 'justify-between'"
             >
-                <VLoading v-if="isLoading" />
+                <h2 v-if="query.length === 0" class="text-3xl">
+                    Belum ada calon kandidat
+                </h2>
+                <VLoading v-else-if="isLoading" />
                 <VCandidateCard
                     v-for="(data, index) in query"
                     :key="index"
