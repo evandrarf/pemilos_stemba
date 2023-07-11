@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckHasVote
 {
@@ -16,7 +17,7 @@ class CheckHasVote
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->guard('voter')->user()->status == true) {
+        if (Auth::guard('voter')->user()->status === true) {
             return redirect()->route('user-voter.thanks');
         }
         return $next($request);

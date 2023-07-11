@@ -18,11 +18,6 @@ class Voter extends  Authenticatable
         'username' => 'string'
     ];
 
-    public function getAuthIdentifierName()
-    {
-        return 'username';
-    }
-
     public function getAuthPassword()
     {
         return $this->password;
