@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('class')->nullable();
             $table->enum('type', ['student', 'teacher']);
-            $table->string('username')->unique();
+            $table->string('username');
             $table->string('password');
             $table->boolean('status')->default(0);
             $table->timestamps();
