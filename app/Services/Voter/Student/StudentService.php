@@ -97,9 +97,16 @@ class StudentService
         return true;
     }
 
-    public function exportStudentVoter()
+    public function exportStudentVoter($request)
     {
-        $data = new StudentVoterExport();
+        $with_password = $request->with_password;
+        $status = $request->student_status;
+
+        if ($status === 'all') {
+            $status = null;
+        }
+
+        $data = new StudentVoterExport($with_password, $status);
 
         return $data;
     }

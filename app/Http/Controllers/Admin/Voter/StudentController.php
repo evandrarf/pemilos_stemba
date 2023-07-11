@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Voter;
 
 use App\Actions\Options\GetClassOptions;
-use App\Exports\StudentVoterExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStudentVoterRequest;
 use App\Http\Requests\ImportStudentVoterRequest;
@@ -13,7 +12,6 @@ use App\Http\Resources\Voter\Student\SubmitStudentVoterResource;
 use App\Services\Voter\Student\StudentService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -119,10 +117,10 @@ class StudentController extends Controller
         }
     }
 
-    public function exportStudentVoter()
+    public function exportStudentVoter(Request $request)
     {
         try {
-            $data = $this->studentService->exportStudentVoter();
+            $data = $this->studentService->exportStudentVoter($request);
 
             return $data->download('student-voter.xlsx');
         } catch (\Exception $e) {

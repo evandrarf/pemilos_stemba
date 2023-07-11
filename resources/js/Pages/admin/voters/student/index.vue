@@ -27,6 +27,7 @@ import VAlert from "@/components/VAlert/index.vue";
 import VBadge from "@/components/VBadge/index.vue";
 import VEyeOpen from "@/components/src/icons/VEyeOpen.vue";
 import VEyeClosed from "@/components/src/icons/VEyeClosed.vue";
+import VExportModalForm from "./ExportModalForm.vue";
 
 const props = defineProps({
     title: string(),
@@ -46,6 +47,7 @@ const classList = ref([]);
 const show = ref({});
 const step = ref(1);
 const disabled = ref(true);
+const openExportModalForm = ref(false);
 const alertData = reactive({
     headerLabel: "",
     contentLabel: "",
@@ -301,6 +303,18 @@ const handleExportData = () => {
         });
 };
 
+const handleOpenExportModalForm = () => {
+    openExportModalForm.value = true;
+};
+
+const handleCloseExportModalForm = () => {
+    openExportModalForm.value = false;
+};
+
+const handleSuccessExport = () => {
+    openExportModalForm.value = false;
+};
+
 const handleDeleteAllStudentVoter = () => {
     openAlertDeleteAllStudent.value = true;
     alertData.headerLabel = "Delete All Student";
@@ -341,7 +355,7 @@ onMounted(() => {
                 label="Export"
                 type="success"
                 icon="VFileExport"
-                @click="handleExportData"
+                @click="handleOpenExportModalForm"
                 class="mt-auto"
                 :disabled="isLoading | disabled"
             />
@@ -490,6 +504,11 @@ onMounted(() => {
             />
         </div>
     </div>
+    <VExportModalForm
+        :open-dialog="openExportModalForm"
+        @success="handleSuccessExport"
+        @close="handleCloseExportModalForm"
+    />
     <VModalForm
         :update-action="updateAction"
         :data="itemSelected"
