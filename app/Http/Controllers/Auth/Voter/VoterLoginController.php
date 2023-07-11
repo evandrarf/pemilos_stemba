@@ -40,7 +40,7 @@ class VoterLoginController extends Controller
         $creadentials = request()->only(['username', 'password', 'type']);
 
 
-        $user = Voter::where(['username' => $creadentials['username'], 'password' => $creadentials['password'], 'type' => $creadentials['type']])->first();
+        $user = Voter::where('type', $creadentials['type'])->where(['username' => $creadentials['username'], 'password' => $creadentials['password'],])->first();
 
         if (!$user) {
 
