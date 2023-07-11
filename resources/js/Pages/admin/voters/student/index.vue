@@ -164,6 +164,7 @@ const deleteStudentVoter = () => {
         .finally(() => {
             openAlertDeleteStudent.value = false;
             // isLoading.value = false;
+            itemSelected.value = ref({});
         });
 };
 

@@ -164,6 +164,7 @@ const deleteCandidate = () => {
         .finally(() => {
             openAlert.value = false;
             // isLoading.value = false;
+            itemSelected.value = ref({});
         });
 };
 
