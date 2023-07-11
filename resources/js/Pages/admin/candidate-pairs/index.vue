@@ -155,7 +155,7 @@ const deleteCandidatePair = () => {
                 2500
             );
             isLoading.value = true;
-            form.value = ref({});
+            itemSelected.value = ref({});
             getData(pagination.value.current_page);
         })
         .catch((res) => {
