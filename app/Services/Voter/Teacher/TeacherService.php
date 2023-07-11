@@ -91,9 +91,16 @@ class TeacherService
         return $import;
     }
 
-    public function exportTeacherVoter()
+    public function exportTeacherVoter($request)
     {
-        $data = new TeacherVoterExport();
+        $with_password = $request->with_password;
+        $status = $request->teacher_status;
+
+        if ($status === 'all') {
+            $status = null;
+        }
+
+        $data = new TeacherVoterExport($with_password, $status);
 
         return $data;
     }

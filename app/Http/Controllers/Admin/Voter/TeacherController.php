@@ -108,10 +108,10 @@ class TeacherController extends Controller
         }
     }
 
-    public function exportTeacherVoter()
+    public function exportTeacherVoter(Request $request)
     {
         try {
-            $data = $this->teacherService->exportTeacherVoter();
+            $data = $this->teacherService->exportTeacherVoter($request);
 
             return $data->download('teacher-voter.xlsx');
         } catch (\Exception $e) {

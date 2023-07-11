@@ -279,30 +279,6 @@ const closeAlert = () => {
     openAlertDeleteStudent.value = false;
 };
 
-const handleExportData = () => {
-    axios
-        .get(route("voters.students.export"), { responseType: "blob" })
-        .then((res) => {
-            const url = window.URL.createObjectURL(new Blob([res.data]));
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", "student-voter.xlsx");
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        })
-        .catch((res) => {
-            notify(
-                {
-                    type: "error",
-                    group: "top",
-                    text: "Export failed, please try again later",
-                },
-                2500
-            );
-        });
-};
-
 const handleOpenExportModalForm = () => {
     openExportModalForm.value = true;
 };

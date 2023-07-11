@@ -14,42 +14,88 @@ use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 class TeacherVoterExport extends StringValueBinder  implements FromCollection, WithColumnWidths, WithHeadings, WithMapping, WithCustomValueBinder
 {
     use Exportable;
+
+    private $with_password;
+    private $status;
+
+    public function __construct(string $with_password,   $status)
+    {
+        $this->with_password = $with_password;
+        $this->status =  $status;
+    }
+
     /**
      * @return \Illuminate\Support\Collection
      */
     public function collection()
     {
-        return Voter::select('name', 'username', 'password', 'status')
-            ->where('type', 'teacher')
+        $data = [
+            'name',
+            'username',
+            'status'
+        ];
+
+        if ($this->with_password === 'yes') {
+            array_splice($data, 2, 0, 'password');
+        }
+
+        return Voter::select($data)
+            ->where('type', 'teacher')->when($this->status, function ($query) {
+                if ($this->status === 'done') {
+                    $status = true;
+                } else {
+                    $status = false;
+                }
+                return $query->where('status', $status);
+            })
             ->get();
     }
 
     public function map($teacher): array
     {
-        return [
+        $data = [
             strtoupper($teacher->name),
             (string)$teacher->username,
-            $teacher->password,
             $teacher->status ? 'sudah' : "belum"
         ];
+
+        if ($this->with_password === 'yes') {
+            array_splice($data, 2, 0, $teacher->password,);
+        }
+
+        return $data;
     }
 
     public function columnWidths(): array
     {
-        return [
+        $data = [
             'A' => 22,
             'B' => 22,
-            'C' => 18
+            'C' => 18,
         ];
+        if ($this->with_password === 'yes') {
+            $data = [
+                'A' => 22,
+                'B' => 22,
+                'C' => 18,
+                'D' => 18,
+            ];
+        }
+        return $data;
     }
 
     public function headings(): array
     {
-        return [
+        $data = [
             'Nama',
-            'Username',
-            'Password',
+            'NIP',
             'Status Memilih'
         ];
+
+        if ($this->with_password === 'yes') {
+            array_splice($data, 2, 0, 'Password');
+        }
+
+        return $data;
     }
 }
