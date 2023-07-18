@@ -226,7 +226,9 @@ const handleOpenAlertLogout = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col py-4 h-full w-full">
+                    <div
+                        class="flex flex-col py-4 h-full w-full overflow-auto no-scrollbar"
+                    >
                         <div class="pl-32 pr-4 text-lg">
                             <h5>~Visi:</h5>
                             <p v-if="data.vision">{{ data.vision }}</p>
