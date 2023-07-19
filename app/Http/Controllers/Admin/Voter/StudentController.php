@@ -29,7 +29,7 @@ class StudentController extends Controller
         $statusOptions = ['done' => 'Done', 'not-yet' => 'Not yet'];
 
         return Inertia::render('admin/voters/student/index', [
-            'title' => 'Pemilos | Student Voter',
+            'title' => 'Student User | Pemilos',
             'additional' => [
                 'status_list' => $statusOptions
             ]
