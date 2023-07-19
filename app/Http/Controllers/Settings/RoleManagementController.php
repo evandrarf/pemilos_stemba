@@ -21,7 +21,7 @@ class RoleManagementController extends Controller
     public function index()
     {
         return Inertia::render('admin/settings/role/index', [
-            "title" => 'POS | Role managements'
+            "title" => 'Role managements | Pemilos'
         ]);
     }
 
