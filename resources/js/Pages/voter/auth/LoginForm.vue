@@ -65,7 +65,7 @@ watch(
             <div
                 class="bg-[#B08BBB] w-full h-12 flex justify-between items-center px-5 text-xl border-b-2 border-black"
             >
-                <span>Pemilos</span>
+                <span>PEMILOS</span>
                 <span>
                     <span class="py-1 px-2 border border-black">
                         <VXmark class="text-xl" />
