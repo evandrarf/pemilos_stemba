@@ -28,6 +28,7 @@ class TeacherController extends Controller
         $statusOptions = ['done' => 'Done', 'not-yet' => 'Not yet'];
 
         return Inertia::render('admin/voters/teacher/index', [
+            'title' => 'Pemilos | Teacher Voter',
             'additional' => [
                 'status_list' => $statusOptions
             ]
