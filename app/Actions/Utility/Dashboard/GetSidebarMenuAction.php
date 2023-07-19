@@ -32,7 +32,7 @@ class GetSidebarMenuAction
                 'can' => ['view_candidate_pairs']
             ],
             [
-                'text' => 'Voters',
+                'text' => 'User',
                 'icon' => 'VUser',
                 'group' => true,
                 'can' => ['view_voters'],

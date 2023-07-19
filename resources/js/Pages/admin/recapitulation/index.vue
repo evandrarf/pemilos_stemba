@@ -118,7 +118,7 @@ onMounted(() => {
         <VVoterSummary
             :data="voterSummary"
             :data-loading="voterSummaryLoading"
-            title="voter summary"
+            title="User summary"
             :span="2"
             @filter="handleFilter"
         />
