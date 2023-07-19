@@ -17,14 +17,14 @@ const user = computed(() => usePage().props.value.user);
         class="absolute z-40 inset-0 flex justify-center items-center font-vcr"
     >
         <div
-            class="w-2/5 min-h-[33%] flex flex-col overflow-hidden rounded-[36px] bg-[#E8E8E8] border-2 border-black"
+            class="w-2/5 min-h-[33%] flex flex-col overflow-hidden rounded-[36px] bg-[#E8E8E8] border-2 border-black justify-between pb-4"
             @focusout="$emit('close')"
         >
             <div class="bg-[#A8C1D1] px-14 py-2 text-2xl">
                 <h2 class="text-center">Selamat Datang</h2>
             </div>
             <div class="px-4 py-4">
-                <p class="text-center" v-if="user.type === 'student'">
+                <p class="text-center text-lg" v-if="user.type === 'student'">
                     Selamat datang {{ user.name }} dari kelas {{ user.class }}.
                     Silahkan pilih pasangan calon ketua dan wakil ketua osis.
                     Gunakan hak pilih anda dengan bijak.
