@@ -20,6 +20,7 @@ const logout = () => {
     axios
         .post(route("user-voter.logout"))
         .then(() => {
+            localStorage.removeItem("showPopup");
             window.location.reload();
         })
         .catch((res) => {

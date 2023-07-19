@@ -8,10 +8,12 @@ import VCandidateCard from "./CandidateCard.vue";
 import VLoading from "@/components/VLoading/index.vue";
 import VAlert from "../Alert.vue";
 import { Head } from "@inertiajs/inertia-vue3";
+import VPopup from "./Popup.vue";
 
 const query = ref({});
 const isLoading = ref(true);
 const openAlertLogout = ref(false);
+const showPopup = ref(false);
 
 const props = defineProps({
     title: string(),
@@ -33,6 +35,7 @@ const logout = () => {
     axios
         .post(route("user-voter.logout"))
         .then(() => {
+            localStorage.removeItem("showPopup");
             window.location.reload();
         })
         .catch((res) => {
@@ -48,8 +51,14 @@ const handleOpenAlertLogout = () => {
     openAlertLogout.value = true;
 };
 
+const handleClosePopup = () => {
+    showPopup.value = false;
+    localStorage.setItem("showPopup", "false");
+};
+
 onMounted(() => {
     getData();
+    showPopup.value = localStorage.getItem("showPopup") === "true";
 });
 </script>
 
@@ -159,4 +168,5 @@ onMounted(() => {
         submitButton="YA"
         cancelButton="TIDAK"
     />
+    <VPopup v-if="showPopup" @close="handleClosePopup" />
 </template>

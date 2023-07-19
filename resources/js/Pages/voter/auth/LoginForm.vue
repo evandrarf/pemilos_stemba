@@ -28,6 +28,7 @@ const handleLogin = () => {
             ...form.value,
         })
         .then((res) => {
+            localStorage.setItem("showPopup", "true");
             window.location.reload();
         })
         .catch((res) => {
