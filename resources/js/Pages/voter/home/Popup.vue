@@ -17,7 +17,7 @@ const user = computed(() => usePage().props.value.user);
         class="absolute z-40 inset-0 flex justify-center items-center font-vcr"
     >
         <div
-            class="w-2/5 min-h-[33%] flex flex-col overflow-hidden rounded-[36px] bg-[#E8E8E8] border-2 border-black justify-between pb-4"
+            class="w-2/5 min-h-[33%] flex flex-col overflow-hidden rounded-[36px] bg-[#E8E8E8] border-2 border-black justify-between pb-6"
             @focusout="$emit('close')"
         >
             <div class="bg-[#A8C1D1] px-14 py-2 text-2xl">
