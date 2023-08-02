@@ -199,8 +199,17 @@ watch(
                             Vision
                         </div>
                         <div class="w-full">
-                            <div class="font-normal text-sm text-slate-500">
+                            <div
+                                class="font-normal text-sm text-slate-500"
+                                v-if="
+                                    candidatePairData.vision !== null ||
+                                    candidatePairData.vision !== ''
+                                "
+                            >
                                 {{ candidatePairData.vision }}
+                            </div>
+                            <div v-else>
+                                <p>There is no vision yet</p>
                             </div>
                         </div>
                     </section>
@@ -213,6 +222,10 @@ watch(
                         <div class="w-full">
                             <div
                                 class="font-normal text-sm text-slate-500 flex flex-col"
+                                v-if="
+                                    candidatePairData.mission !== null ||
+                                    candidatePairData.mission !== ''
+                                "
                             >
                                 <span
                                     v-for="(
@@ -222,6 +235,9 @@ watch(
                                     )"
                                     >{{ data }}</span
                                 >
+                            </div>
+                            <div v-else>
+                                <p>There is no mission yet</p>
                             </div>
                         </div>
                     </section>
