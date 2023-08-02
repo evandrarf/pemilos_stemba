@@ -24,8 +24,8 @@ class CandidatePairDetailResource extends JsonResource
             'chairman_id' => $this->chairman_id,
             'vice_chairman_id' => $this->vice_chairman_id,
             'number' => $this->number,
-            'vision' => $this->vision,
-            'mission' => $this->mission,
+            'vision' => $this->vision ?? '',
+            'mission' => $this->mission ?? '',
             'image' => $this->image ? $getFile->handle($this->image)->full_path : asset('img/default.png'),
         ];
     }
