@@ -8,8 +8,8 @@ Berisi fungsionalitas utama dalam sebuah website pemilos seperti menambahkan kad
 
 Untuk melihat demo dari aplikasi silahkan kunjungi [url](https://demo-pemilos.evandrarf.my.id/) berikut.
 
-Credentials Admin :
-admin endpoint : /admin
-admin login : /admin/login
-username : admin@pemilos.com
-password : rahasia123
+Credentials Admin : <br>
+admin endpoint : /admin <br>
+admin login : /admin/login <br>
+username : admin@pemilos.com <br>
+password : rahasia123 <br>
