@@ -6,7 +6,7 @@ import VXmark from "@/components/src/icons/VXmark.vue";
 <template>
     <VNotification></VNotification>
     <div
-        class="w-screen h-screen flex bg-[#529B9C] items-center flex-col font-vcr relative overflow-hidden"
+        class="w-screen min-h-screen flex bg-[#529B9C] items-center flex-col font-vcr relative overflow-hidden"
     >
         <div class="w-full select-none">
             <div class="w-4/5 mx-auto h-52 mt-4 bg-[#E8E8E8] flex flex-col">
