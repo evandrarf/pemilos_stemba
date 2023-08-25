@@ -68,7 +68,7 @@ watch(
                 <div
                     class="w-1.5 rounded-r mr-4"
                     :class="{
-                        'bg-blue-500': item.status === 'All',
+                        'bg-blue-500': item.status === 'Total',
                         'bg-red-500': item.status === 'Not yet',
                         'bg-green-500': item.status === 'Done',
                     }"

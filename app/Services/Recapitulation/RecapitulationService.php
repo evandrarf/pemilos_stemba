@@ -40,7 +40,7 @@ class RecapitulationService
             })->values();
 
             $query[] = [
-                'status' => 'All',
+                'status' => 'Total',
                 'count' => $voter->count()
             ];
         } else {
@@ -56,7 +56,7 @@ class RecapitulationService
             })->values();
 
             $query[] = [
-                'status' => 'All',
+                'status' => 'Total',
                 'count' => $voter->count()
             ];
         }
