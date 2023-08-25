@@ -4,22 +4,20 @@ namespace App\Imports;
 
 use App\Actions\Utility\GeneratePassword;
 use App\Models\Voter;
+use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 
-class TeacherVoterImport implements ToModel, WithHeadingRow, WithValidation, WithChunkReading, WithCalculatedFormulas
+class TeacherVoterImport implements ToModel, WithHeadingRow, WithValidation, WithChunkReading, WithCalculatedFormulas, SkipsEmptyRows
 {
     use Importable;
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
+
     public function model(array $row)
     {
         $generatePassword  = new GeneratePassword();
@@ -27,7 +25,7 @@ class TeacherVoterImport implements ToModel, WithHeadingRow, WithValidation, Wit
         return new Voter(
             [
                 'name' => $row['name'],
-                'username' => $row['username'],
+                'username' => preg_replace('/\s+/', '', $row['username']),
                 'password' => $row['password'] ?? $generatePassword->handle(10),
                 'status' => false,
                 'type' => 'teacher',
