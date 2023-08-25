@@ -15,6 +15,7 @@ import axios from "axios";
 import VSummary from "./Summary.vue";
 import VVoterSummary from "./VoterSummary.vue";
 import BarChart from "./BarChart.vue";
+import DoughnutChart from "./DoughnutChart.vue";
 
 const summary = ref([]);
 const summaryLoading = ref(true);
@@ -122,8 +123,13 @@ onMounted(() => {
             :span="2"
             @filter="handleFilter"
         />
-        <div class="col-span-4 mb-8">
+        <div class="col-span-2 mb-8">
             <BarChart />
+        </div>
+        <div class="col-span-2 flex justify-center mb-8">
+            <div class="w-1/2">
+                <DoughnutChart :data="voterSummary" />
+            </div>
         </div>
     </div>
 </template>
