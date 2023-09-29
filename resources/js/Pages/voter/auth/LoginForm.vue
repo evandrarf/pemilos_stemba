@@ -5,6 +5,8 @@ import axios from "axios";
 import VXmark from "@/components/src/icons/VXmark.vue";
 import { notify } from "notiwind";
 import { usePage } from "@inertiajs/inertia-vue3";
+import VEyeClosed from "@/components/src/icons/VEyeClosed.vue";
+import VEyeOpen from "@/components/src/icons/VEyeOpen.vue";
 
 const user = computed(() => usePage().props.value.user);
 
@@ -17,6 +19,7 @@ const isLoading = ref(false);
 const props = defineProps({
     isStudent: bool().def(true),
 });
+const showPassword = ref(false);
 
 const emit = defineEmits(["changeIsStudent"]);
 
@@ -90,12 +93,26 @@ watch(
                     class="bg-transparent outline-none border border-black rounded-3xl text-[16px] active:border-black px-4 py-2 mt-4"
                     v-model="form.username"
                 />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    class="bg-transparent outline-none border border-black rounded-3xl text-[16px] active:border-black px-4 py-2 mt-4"
-                    v-model="form.password"
-                />
+                <div
+                    class="flex items-center mt-4 border outline-none border-black rounded-3xl active:border-black px-2 w-2/3"
+                >
+                    <input
+                        :type="showPassword ? 'password' : 'text'"
+                        placeholder="Password"
+                        class="bg-transparent border-none w-full outline-none text-[16px] py-2"
+                        v-model="form.password"
+                    />
+                    <VEyeClosed
+                        @click="(e) => (showPassword = false)"
+                        class="cursor-pointer"
+                        v-if="showPassword"
+                    />
+                    <VEyeOpen
+                        class="cursor-pointer"
+                        @click="(e) => (showPassword = true)"
+                        v-else
+                    />
+                </div>
                 <button
                     class="mt-6 bg-[#B08BBB] rounded py-1 disabled:bg-slate-200 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 border-2 border-black px-8 text-2xl"
                     type="submit"
