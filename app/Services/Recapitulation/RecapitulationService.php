@@ -35,7 +35,7 @@ class RecapitulationService
             $query[] = [
                 'status' => 'Done',
                 'count' => $done->count(),
-                'persentage' => number_format(($done->count() / $voter->count()) * 100, 2)
+                'persentage' => $voter->count() > 0 ? number_format(($done->count() / $voter->count()) * 100, 2) : 0
             ];
 
             $not_yet = Voter::where('status', 0)->get();
@@ -43,7 +43,7 @@ class RecapitulationService
             $query[] = [
                 'status' => 'Not yet',
                 'count' => $not_yet->count(),
-                'persentage' => number_format(($not_yet->count() / $voter->count()) * 100, 2)
+                'persentage' => $voter->count() > 0 ? number_format(($not_yet->count() / $voter->count()) * 100, 2) : 0
             ];
 
             $query[] = [
