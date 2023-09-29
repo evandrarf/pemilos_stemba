@@ -25,7 +25,7 @@ class TeacherVoterImport implements ToModel, WithHeadingRow, WithValidation, Wit
         return new Voter(
             [
                 'name' => $row['name'],
-                'username' => strtolower(preg_replace('/\s+/', '_', $row['username'])),
+                'username' => strtolower(preg_replace('/[\s.]+/', '_', $row['username'])),
                 'password' => $row['password'] ?? $generatePassword->handle(10),
                 'status' => false,
                 'type' => 'teacher',
