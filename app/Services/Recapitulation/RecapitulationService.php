@@ -17,7 +17,7 @@ class RecapitulationService
             return [
                 'candidate_pair' => $items,
                 'count' => $vote,
-                'persentage' => number_format(($vote / $votes->get()->count()) * 100, 2)
+                'persentage' => number_format(($vote  / $votes->get()->count()) * 100, 2)
             ];
         });
 
@@ -30,14 +30,21 @@ class RecapitulationService
 
             $voter = Voter::query();
 
-            $query = $voter->orderBy('status', "desc")->get()->groupBy('status')->map(function ($items, $status) use ($voter) {
-                $count = $items->count();
-                return [
-                    'status' => $status ? 'Done' : 'Not yet',
-                    'count' => $count,
-                    'persentage' => number_format(($count / $voter->count()) * 100, 2)
-                ];
-            })->values();
+            $done = Voter::where('status', 1)->get();
+
+            $query[] = [
+                'status' => 'Done',
+                'count' => $done->count(),
+                'persentage' => number_format(($done->count() / $voter->count()) * 100, 2)
+            ];
+
+            $not_yet = Voter::where('status', 0)->get();
+
+            $query[] = [
+                'status' => 'Not yet',
+                'count' => $not_yet->count(),
+                'persentage' => number_format(($not_yet->count() / $voter->count()) * 100, 2)
+            ];
 
             $query[] = [
                 'status' => 'Total',

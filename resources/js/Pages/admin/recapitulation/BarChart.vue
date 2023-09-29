@@ -58,6 +58,7 @@ const getSummary = debounce(async () => {
             };
         })
         .catch((res) => {
+            console.log(res);
             notify(
                 {
                     type: "error",
@@ -86,6 +87,9 @@ const footer = (tooltipItems) => {
 };
 
 const getMax = (data) => {
+    if (data.length <= 0) {
+        return 1;
+    }
     const max = data.reduce((a, b) => (a.count > b.count ? a : b)).count;
     return max > 0 ? max : 1;
 };

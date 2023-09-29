@@ -16,6 +16,7 @@ import VSummary from "./Summary.vue";
 import VVoterSummary from "./VoterSummary.vue";
 import BarChart from "./BarChart.vue";
 import DoughnutChart from "./DoughnutChart.vue";
+import { notify } from "notiwind";
 
 const summary = ref([]);
 const summaryLoading = ref(true);
