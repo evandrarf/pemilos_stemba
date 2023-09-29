@@ -87,9 +87,7 @@ watch(
                 />
                 <input
                     type="text"
-                    :placeholder="
-                        isStudent ? 'Username (NIS)' : 'Username (NIP)'
-                    "
+                    :placeholder="isStudent ? 'Username (NIS)' : 'Username'"
                     class="bg-transparent outline-none border border-black rounded-3xl text-[16px] active:border-black px-4 py-2 mt-4"
                     v-model="form.username"
                 />
@@ -97,7 +95,7 @@ watch(
                     class="flex items-center mt-4 border outline-none border-black rounded-3xl active:border-black px-2 w-2/3"
                 >
                     <input
-                        :type="showPassword ? 'password' : 'text'"
+                        :type="showPassword ? 'text' : 'password'"
                         placeholder="Password"
                         class="bg-transparent border-none w-full outline-none text-[16px] py-2"
                         v-model="form.password"
