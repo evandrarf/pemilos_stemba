@@ -53,14 +53,21 @@ class RecapitulationService
         } else {
             $voter = Voter::where('type', $request->type);
 
-            $query = $voter->orderBy('status', "desc")->get()->groupBy('status')->map(function ($items, $status) use ($voter) {
-                $count = $items->count();
-                return [
-                    'status' => $status ? 'Done' : 'Not yet',
-                    'count' => $count,
-                    'persentage' => number_format(($count / $voter->count()) * 100, 2)
-                ];
-            })->values();
+            $done = Voter::where('type', $request->type)->where('status', 1)->get();
+
+            $query[] = [
+                'status' => 'Done',
+                'count' => $done->count(),
+                'persentage' => $voter->count() > 0 ? number_format(($done->count() / $voter->count()) * 100, 2) : 0
+            ];
+
+            $not_yet = Voter::where('type', $request->type)->where('status', 0)->get();
+
+            $query[] = [
+                'status' => 'Not yet',
+                'count' => $not_yet->count(),
+                'persentage' => $voter->count() > 0 ? number_format(($not_yet->count() / $voter->count()) * 100, 2) : 0
+            ];
 
             $query[] = [
                 'status' => 'Total',
