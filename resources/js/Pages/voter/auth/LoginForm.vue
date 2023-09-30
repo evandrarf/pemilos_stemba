@@ -92,7 +92,7 @@ watch(
                     v-model="form.username"
                 />
                 <div
-                    class="flex items-center mt-4 border outline-none border-black rounded-3xl active:border-black px-2 w-2/3"
+                    class="flex items-center mt-4 border outline-none border-black rounded-3xl active:border-black pl-2 pr-3 w-2/3"
                 >
                     <input
                         :type="showPassword ? 'text' : 'password'"
@@ -100,12 +100,12 @@ watch(
                         class="bg-transparent border-none w-full outline-none text-[16px] py-2"
                         v-model="form.password"
                     />
-                    <VEyeClosed
+                    <VEyeOpen
                         @click="(e) => (showPassword = false)"
                         class="cursor-pointer"
                         v-if="showPassword"
                     />
-                    <VEyeOpen
+                    <VEyeClosed
                         class="cursor-pointer"
                         @click="(e) => (showPassword = true)"
                         v-else
