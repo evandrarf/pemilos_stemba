@@ -271,7 +271,7 @@ watch(
                     <div class="py-2">
                         <VInput
                             label="Username"
-                            placeholder="Ex: 107512222000031002"
+                            placeholder="Ex: haris_wahyudi"
                             v-model="form.username"
                             :tooltip="true"
                             tooltipBg="white"
@@ -288,7 +288,7 @@ watch(
                                         Teacher Voter Username
                                     </div>
                                     <div class="mb-0.5">
-                                        Menggunakan NIP (Nomor Induk Pegawai)
+                                        Menggunakan nama guru/tenaga kerja
                                         sebagai username
                                     </div>
                                 </div>
