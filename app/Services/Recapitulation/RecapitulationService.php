@@ -17,7 +17,7 @@ class RecapitulationService
             return [
                 'candidate_pair' => $items,
                 'count' => $vote,
-                'persentage' => number_format(($vote  / $votes->get()->count()) * 100, 2)
+                'persentage' => $votes->get()->count() > 0  ? number_format(($vote  / $votes->get()->count()) * 100, 2) : 0
             ];
         });
 
