@@ -11,10 +11,10 @@ const props = defineProps({
 
 <template>
     <div
-        class="flex flex-col w-80 bg-[#E8E8E8] h-[420px] rounded-3xl border-2 overflow-hidden border-black relative"
+        class="flex flex-col w-3/4 my-6 lg:my-4 drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)] lg:drop-shadow-none lg:w-80 bg-[#E8E8E8] h-[420px] rounded-3xl border-2 overflow-hidden border-black relative"
         :class="{
-            '-right-9': length === index + 1,
-            '-left-9': index === 0 && length !== 1,
+            'lg:-right-9': length === index + 1,
+            'lg:-left-9': index === 0 && length !== 1,
         }"
     >
         <div

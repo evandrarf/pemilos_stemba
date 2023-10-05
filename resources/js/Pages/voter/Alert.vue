@@ -11,7 +11,8 @@ const props = defineProps({
     cancelButton: string().def("Cancel"),
 });
 
-const btn = "w-32 py-2 text-2xl rounded-md border-2 border-black";
+const btn =
+    "w-24 md:w-32 py-2 text-xl md:text-2xl rounded-md border-2 border-black";
 
 const emit = defineEmits(["submit", "close"]);
 </script>
@@ -42,13 +43,17 @@ const emit = defineEmits(["submit", "close"]);
             leave-to-class="opacity-0 translate-y-4"
         >
             <div
-                class="w-2/5 h-52 flex flex-col overflow-hidden rounded-[36px] bg-[#E8E8E8] border-2 border-black"
+                class="md:w-2/5 w-[80%] h-52 flex flex-col overflow-hidden rounded-xl lg:rounded-[36px] bg-[#E8E8E8] border-2 border-black"
                 @focusout="$emit('close')"
             >
-                <div class="bg-[#A8C1D1] px-14 py-2 text-2xl">
+                <div
+                    class="bg-[#A8C1D1] px-4 lg:px-14 py-2 text-xl md:text-2xl"
+                >
                     <h2 class="text-center">{{ title }}</h2>
                 </div>
-                <div class="flex justify-center gap-8 items-center h-full">
+                <div
+                    class="flex justify-center gap-4 md:gap-8 items-center h-full"
+                >
                     <button
                         :class="btn"
                         class="bg-[#9CBA8F]"

@@ -65,52 +65,64 @@ onMounted(() => {
 <template>
     <Head :title="title" />
     <div
-        class="w-screen h-screen bg-[#FAB18B] flex justify-center items-center font-vcr"
+        class="w-screen min-h-screen h-max lg:h-screen bg-[#FAB18B] flex justify-center items-center font-vcr"
     >
         <div
-            class="w-[90%] rounded-[30px] flex flex-col border-2 border-black h-[90%] bg-[#E8E8E8]"
+            class="w-[90%] rounded-[30px] flex flex-col border-2 xl:min-h-0 lg:min-h-screen border-black lg:h-[90%] bg-[#E8E8E8]"
         >
-            <div class="flex justify-between border-b-2 border-black p-6">
-                <div class="flex flex-col justify-between">
-                    <div class="flex gap-2">
-                        <div class="w-6 h-6 rounded-full bg-blue-300"></div>
-                        <div class="w-6 h-6 rounded-full bg-[#C76E7A]"></div>
-                        <div class="w-6 h-6 rounded-full bg-[#9CBA8F]"></div>
-                    </div>
+            <div
+                class="lg:flex grid grid-cols-2 gap-y-3 w-full justify-between border-b-2 border-black p-6"
+            >
+                <div
+                    class="flex flex-row col-span-2 lg:flex-col row-span-1 justify-between"
+                >
+                    <!-- Red green Blue circle -->
                     <div class="flex gap-2">
                         <div
-                            class="border border-black rounded-sm p-1 flex justify-end items-center w-8 h-8"
+                            class="w-4 h-4 lg:w-6 lg:h-6 rounded-full bg-blue-300"
+                        ></div>
+                        <div
+                            class="w-4 h-4 lg:w-6 lg:h-6 rounded-full bg-[#C76E7A]"
+                        ></div>
+                        <div
+                            class="w-4 h-4 lg:w-6 lg:h-6 rounded-full bg-[#9CBA8F]"
+                        ></div>
+                    </div>
+
+                    <!-- Back circle -->
+                    <div class="hidden lg:flex gap-2">
+                        <div
+                            class="border border-black rounded-sm p-1 flex justify-end items-center w-6 lg:w-8 h-6 lg:h-8"
                         >
                             <div
-                                class="border-b-2 border-l-2 rotate-45 border-black w-4 h-4"
+                                class="border-b-2 border-l-2 rotate-45 border-black w-3 lg:w-4 h-3 lg:h-4"
                             ></div>
                         </div>
                         <div
-                            class="border border-black rounded-sm p-1 flex justify-start items-center w-8 h-8"
+                            class="border border-black rounded-sm p-1 flex justify-start items-center w-6 lg:w-8 h-6 lg:h-8"
                         >
                             <div
-                                class="border-t-2 border-r-2 rotate-45 border-black w-4 h-4"
+                                class="border-t-2 border-r-2 rotate-45 border-black w-3 lg:w-4 h-3 lg:h-4"
                             ></div>
                         </div>
                         <div
-                            class="border border-black rounded-sm p-1 flex flex-col gap-1 justify-center items-center w-8 h-8"
+                            class="border border-black rounded-sm p-1 flex flex-col gap-1 justify-center items-center w-6 lg:w-8 h-6 lg:h-8"
                         >
                             <div class="w-[90%] h-[2px] bg-black"></div>
                             <div class="w-[90%] h-[2px] bg-black"></div>
                             <div class="w-[90%] h-[2px] bg-black"></div>
                         </div>
                     </div>
-                </div>
-                <h1 class="text-[50px]">PILIH CALON KETUA OSISMU!</h1>
-                <div class="flex flex-col justify-between items-end">
-                    <div class="flex gap-2">
+
+                    <!-- Close button -->
+                    <div class="flex lg:hidden gap-2">
                         <div
-                            class="w-8 h-8 border border-black rounded flex justify-center py-1.5 items-end"
+                            class="w-6 lg:w-8 h-6 lg:h-8 border border-black rounded flex justify-center py-1.5 items-end"
                         >
                             <div class="w-4/5 bg-black h-0.5"></div>
                         </div>
                         <div
-                            class="w-8 h-8 border border-black rounded relative flex justify-center items-center"
+                            class="w-6 lg:w-8 h-6 lg:h-8 border border-black rounded relative flex justify-center items-center"
                         >
                             <div
                                 class="border-2 border-black w-[60%] h-[60%] z-10 absolute left-1 bottom-1 bg-[#E8E8E8]"
@@ -120,7 +132,7 @@ onMounted(() => {
                             ></div>
                         </div>
                         <button
-                            class="w-8 h-8 border bg-[#C76E7A] border-black rounded relative flex justify-center items-center"
+                            class="w-6 lg:w-8 h-6 lg:h-8 border bg-[#C76E7A] border-black rounded relative flex justify-center items-center"
                             @click="handleOpenAlertLogout"
                         >
                             <div
@@ -131,9 +143,70 @@ onMounted(() => {
                             ></div>
                         </button>
                     </div>
+                </div>
+                <h1
+                    class="lg:text-[50px] text-center grid row-span-2 col-span-2 text-2xl"
+                >
+                    PILIH CALON KETUA OSISMU!
+                </h1>
+                <div
+                    class="flex lg:flex-col col-span-2 justify-between items-end"
+                >
+                    <div class="hidden lg:flex gap-2">
+                        <div
+                            class="w-6 lg:w-8 h-6 lg:h-8 border border-black rounded flex justify-center py-1.5 items-end"
+                        >
+                            <div class="w-4/5 bg-black h-0.5"></div>
+                        </div>
+                        <div
+                            class="w-6 lg:w-8 h-6 lg:h-8 border border-black rounded relative flex justify-center items-center"
+                        >
+                            <div
+                                class="border-2 border-black w-[60%] h-[60%] z-10 absolute left-1 bottom-1 bg-[#E8E8E8]"
+                            ></div>
+                            <div
+                                class="border-2 border-black w-[60%] h-[60%] absolute right-1 top-1"
+                            ></div>
+                        </div>
+                        <button
+                            class="w-6 lg:w-8 h-6 lg:h-8 border bg-[#C76E7A] border-black rounded relative flex justify-center items-center"
+                            @click="handleOpenAlertLogout"
+                        >
+                            <div
+                                class="w-4/5 h-0.5 bg-black absolute origin-center -rotate-45"
+                            ></div>
+                            <div
+                                class="w-4/5 h-0.5 bg-black absolute origin-center rotate-45"
+                            ></div>
+                        </button>
+                    </div>
+                    <!-- Back circle -->
+                    <div class="flex lg:hidden gap-2">
+                        <div
+                            class="border border-black rounded-sm p-1 flex justify-end items-center w-6 lg:w-8 h-6 lg:h-8"
+                        >
+                            <div
+                                class="border-b-2 border-l-2 rotate-45 border-black w-3 lg:w-4 h-3 lg:h-4"
+                            ></div>
+                        </div>
+                        <div
+                            class="border border-black rounded-sm p-1 flex justify-start items-center w-6 lg:w-8 h-6 lg:h-8"
+                        >
+                            <div
+                                class="border-t-2 border-r-2 rotate-45 border-black w-3 lg:w-4 h-3 lg:h-4"
+                            ></div>
+                        </div>
+                        <div
+                            class="border border-black rounded-sm p-1 flex flex-col gap-1 justify-center items-center w-6 lg:w-8 h-6 lg:h-8"
+                        >
+                            <div class="w-[90%] h-[2px] bg-black"></div>
+                            <div class="w-[90%] h-[2px] bg-black"></div>
+                            <div class="w-[90%] h-[2px] bg-black"></div>
+                        </div>
+                    </div>
                     <div>
                         <div
-                            class="flex justify-end items-center px-2 text min-w-[150px] border border-black rounded-md"
+                            class="flex justify-end items-center px-2 text w-full lg:min-w-[150px] border border-black rounded-md"
                         >
                             <span class="mr-2">search</span>
                             <VSearch size="sm" />
@@ -142,7 +215,7 @@ onMounted(() => {
                 </div>
             </div>
             <div
-                class="flex mx-auto items-center h-full w-full"
+                class="flex flex-col lg:flex-row mx-auto items-center h-full w-full"
                 :class="query.length < 3 ? 'justify-center' : 'justify-between'"
             >
                 <h2 v-if="query.length === 0" class="text-3xl">
