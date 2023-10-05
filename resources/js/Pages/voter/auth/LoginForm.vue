@@ -62,7 +62,9 @@ watch(
 </script>
 
 <template>
-    <div class="w-[340px] h-[480px] relative flex justify-center items-start">
+    <div
+        class="w-2/3 h-max mt-3 lg:mt-0 md:w-[340px] relative flex justify-center items-start"
+    >
         <div
             class="w-full h-full border-2 border-black relative -top-8 rounded-[30px] bg-[#E8E8E8] flex flex-col overflow-hidden"
         >
@@ -77,7 +79,7 @@ watch(
                 </span>
             </div>
             <div class="flex flex-col items-center py-4">
-                <h2 class="text-3xl">
+                <h2 class="text-2xl lg:text-3xl">
                     LOG-IN {{ isStudent ? "SISWA" : "GURU" }}
                 </h2>
                 <img
@@ -85,14 +87,34 @@ watch(
                     class="w-1/2 mt-2"
                     alt="logo smk"
                 />
+                <div class="flex md:hidden flex-col">
+                    <button
+                        class="mt-6 bg-[#B08BBB] text-lg rounded py-1 disabled:bg-slate-200 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 border-2 border-black px-8"
+                        type="submit"
+                        @click="changeIsStudent(false)"
+                        :disabled="isLoading"
+                        :class="{ 'text-white': !isStudent }"
+                    >
+                        Guru
+                    </button>
+                    <button
+                        class="mt-6 bg-[#B08BBB] text-lg rounded py-1 disabled:bg-slate-200 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 border-2 border-black px-8"
+                        type="submit"
+                        @click="changeIsStudent(true)"
+                        :disabled="isLoading"
+                        :class="{ 'text-white': isStudent }"
+                    >
+                        Siswa
+                    </button>
+                </div>
                 <input
                     type="text"
                     :placeholder="isStudent ? 'Username (NIS)' : 'Username'"
-                    class="bg-transparent outline-none border border-black rounded-3xl text-[16px] active:border-black px-4 py-2 mt-4"
+                    class="bg-transparent outline-none border border-black rounded-3xl text-[16px] active:border-black px-4 py-2 mt-4 w-4/5 lg:w-2/3"
                     v-model="form.username"
                 />
                 <div
-                    class="flex items-center mt-4 border outline-none border-black rounded-3xl active:border-black pl-2 pr-3 w-2/3"
+                    class="flex items-center mt-4 border outline-none border-black rounded-3xl active:border-black pl-2 pr-3 w-4/5 lg:w-2/3"
                 >
                     <input
                         :type="showPassword ? 'text' : 'password'"
@@ -112,7 +134,7 @@ watch(
                     />
                 </div>
                 <button
-                    class="mt-6 bg-[#B08BBB] rounded py-1 disabled:bg-slate-200 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 border-2 border-black px-8 text-2xl"
+                    class="mt-6 bg-[#B08BBB] text-xl rounded py-1 disabled:bg-slate-200 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 border-2 border-black px-8 md:text-2xl"
                     type="submit"
                     @click="handleLogin"
                     :disabled="isLoading"
@@ -122,7 +144,7 @@ watch(
             </div>
         </div>
         <div
-            class="absolute flex flex-col gap-8 justify-start text-2xl -left-24 top-12"
+            class="absolute hidden md:flex flex-col gap-8 justify-start text-2xl -left-24 top-12"
         >
             <div
                 class="w-24 py-2 flex cursor-pointer justify-center bg-[#B08BBB] items-center"

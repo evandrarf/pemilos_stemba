@@ -75,10 +75,10 @@ const handleOpenAlertLogout = () => {
     <VNotification></VNotification>
     <Head :title="title" />
 
-    <div class="w-screen h-screen bg-[#FAB18B] p-12 font-vcr">
+    <div class="w-screen h-max lg:h-screen bg-[#FAB18B] p-6 lg:p-12 font-vcr">
         <div class="w-full h-full flex">
             <div
-                class="w-1/3 z-10 h-full flex flex-col items-center justify-between"
+                class="w-1/3 z-10 h-full hidden lg:flex flex-col items-center justify-between"
             >
                 <div
                     class="flex flex-col w-full h-2/3 text-white drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)]"
@@ -124,7 +124,7 @@ const handleOpenAlertLogout = () => {
                                 </span>
                             </div>
                             <div
-                                class="flex flex-col h-full overflow-y-auto w-full px-6 py-2"
+                                class="flex flex-col h-full text-sm mb-4 overflow-y-auto w-full px-6 py-2"
                             >
                                 <span
                                     >1. {{ data.chairman.name }} ({{
@@ -177,67 +177,132 @@ const handleOpenAlertLogout = () => {
                     </div>
                 </div>
             </div>
-            <div class="w-2/3 relative">
+            <div class="lg:w-2/3 w-full relative">
                 <div
-                    class="w-[110%] absolute -top-3 -left-24 rounded-[30px] flex flex-col border-2 border-black h-full bg-[#E8E8E8] drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)]"
+                    class="lg:w-[110%] w-full relative lg:absolute lg:-top-3 lg:-left-24 rounded-[30px] flex flex-col border-2 pb-12 lg:pb-0 border-black h-max lg:h-full bg-[#E8E8E8] drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)]"
                 >
                     <div
-                        class="flex justify-between border-b-2 border-black p-6"
+                        class="lg:flex grid grid-cols-2 justify-between border-b-2 border-black p-6"
                     >
-                        <div class="flex flex-col justify-between">
-                            <div class="flex gap-2">
+                        <!-- Red green blue button -->
+                        <div class="flex row-start-1 gap-2">
+                            <div
+                                class="w-4 h-4 lg:w-6 lg:h-6 rounded-full bg-blue-300"
+                            ></div>
+                            <div
+                                class="w-4 h-4 lg:w-6 lg:h-6 rounded-full bg-[#C76E7A]"
+                            ></div>
+                            <div
+                                class="w-4 h-4 lg:w-6 lg:h-6 rounded-full bg-[#9CBA8F]"
+                            ></div>
+                        </div>
+                        <h4 class="text-xl row-start-2 text-center col-span-2">
+                            Paslon_{{ data.number }}.txt
+                        </h4>
+                        <!-- Close button -->
+                        <div class="flex row-start-1 gap-2 justify-self-end">
+                            <div
+                                class="w-6 lg:w-8 h-6 lg:h-8 border border-black rounded flex justify-center py-1.5 items-end"
+                            >
+                                <div class="w-4/5 bg-black h-0.5"></div>
+                            </div>
+                            <div
+                                class="w-6 lg:w-8 h-6 lg:h-8 border border-black rounded relative flex justify-center items-center"
+                            >
                                 <div
-                                    class="w-6 h-6 rounded-full bg-blue-300"
+                                    class="border-2 border-black w-[60%] h-[60%] z-10 absolute left-1 bottom-1 bg-[#E8E8E8]"
                                 ></div>
                                 <div
-                                    class="w-6 h-6 rounded-full bg-[#C76E7A]"
-                                ></div>
-                                <div
-                                    class="w-6 h-6 rounded-full bg-[#9CBA8F]"
+                                    class="border-2 border-black w-[60%] h-[60%] absolute right-1 top-1"
                                 ></div>
                             </div>
+                            <button
+                                class="w-6 lg:w-8 h-6 lg:h-8 border bg-[#C76E7A] border-black rounded relative flex justify-center items-center"
+                                @click="handleOpenAlertLogout"
+                            >
+                                <div
+                                    class="w-4/5 h-0.5 bg-black absolute origin-center -rotate-45"
+                                ></div>
+                                <div
+                                    class="w-4/5 h-0.5 bg-black absolute origin-center rotate-45"
+                                ></div>
+                            </button>
                         </div>
-                        <h4 class="text-xl">Paslon_{{ data.number }}.txt</h4>
-                        <div class="flex flex-col justify-between items-end">
-                            <div class="flex gap-2">
+                    </div>
+                    <div class="w-full lg:hidden flex flex-col items-center">
+                        <div
+                            class="flex flex-col w-[90%] -mt-3 h-[200px] text-white drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)]"
+                        >
+                            <div
+                                class="p-4 flex text-sm md:text-lg justify-between items-center bg-[#7F7F7F]"
+                            >
+                                <span>paslon_{{ data.number }}.jpeg</span>
+                                <span
+                                    class="flex justify-center w-6 h-6 items-center relative"
+                                >
+                                    <div
+                                        class="absolute w-4/5 h-0.5 origin-center rotate-45 bg-white"
+                                    ></div>
+                                    <div
+                                        class="absolute w-4/5 h-0.5 origin-center -rotate-45 bg-white"
+                                    ></div>
+                                </span>
+                            </div>
+                            <div
+                                class="w-full h-2/3 bg-[#979797] flex justify-center items-center overflow-hidden pt-2"
+                            >
+                                <img
+                                    :src="data.image"
+                                    class="object-contain h-full"
+                                    :alt="'paslon_' + data.number"
+                                />
+                            </div>
+                            <div
+                                class="bg-[#979797] relative h-12 flex justify-center text-black"
+                            >
                                 <div
-                                    class="w-8 h-8 border border-black rounded flex justify-center py-1.5 items-end"
+                                    class="flex mt-4 bg-[#E8E8E8] max-h-28 absolute flex-col overflow-hidden items-center w-[90%]"
                                 >
-                                    <div class="w-4/5 bg-black h-0.5"></div>
+                                    <div class="self-start flex text-sm">
+                                        <span
+                                            class="bg-[#A8C1D1] py-1 pl-3 pr-16 relative"
+                                            >Nama Calon
+
+                                            <span
+                                                class="bg-[#A8C1D1] w-12 h-12 rotate-45 absolute -right-6 -top-7"
+                                            ></span>
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="flex flex-col text-sm h-full overflow-y-auto w-full px-6 py-2"
+                                    >
+                                        <span
+                                            >1. {{ data.chairman.name }} ({{
+                                                data.chairman.class
+                                            }})</span
+                                        >
+                                        <span
+                                            >2.
+                                            {{ data.vice_chairman.name }} ({{
+                                                data.vice_chairman.class
+                                            }})</span
+                                        >
+                                    </div>
                                 </div>
-                                <div
-                                    class="w-8 h-8 border border-black rounded relative flex justify-center items-center"
-                                >
-                                    <div
-                                        class="border-2 border-black w-[60%] h-[60%] z-10 absolute left-1 bottom-1 bg-[#E8E8E8]"
-                                    ></div>
-                                    <div
-                                        class="border-2 border-black w-[60%] h-[60%] absolute right-1 top-1"
-                                    ></div>
-                                </div>
-                                <button
-                                    class="w-8 h-8 border bg-[#C76E7A] border-black rounded relative flex justify-center items-center"
-                                    @click="handleOpenAlertLogout"
-                                >
-                                    <div
-                                        class="w-4/5 h-0.5 bg-black absolute origin-center -rotate-45"
-                                    ></div>
-                                    <div
-                                        class="w-4/5 h-0.5 bg-black absolute origin-center rotate-45"
-                                    ></div>
-                                </button>
                             </div>
                         </div>
                     </div>
                     <div
-                        class="flex flex-col py-4 h-full w-full overflow-auto no-scrollbar"
+                        class="flex mt-24 lg:mt-0 flex-col py-4 h-full w-full overflow-auto no-scrollbar"
                     >
-                        <div class="pl-32 pr-4 text-lg">
+                        <div
+                            class="lg:pl-32 px-12 text-base lg:pr-4 lg:text-lg"
+                        >
                             <h5>~Visi:</h5>
                             <p v-if="data.vision">{{ data.vision }}</p>
                             <p v-else>Belum ada visi</p>
                         </div>
-                        <div class="pl-36 pr-2 mt-8">
+                        <div class="lg:pl-36 px-12 lg:pr-2 mt-8">
                             <h5 class="text-lg">~Misi:</h5>
                             <p
                                 v-if="data.mission"
@@ -246,6 +311,32 @@ const handleOpenAlertLogout = () => {
                                 {{ row }}
                             </p>
                             <p v-else>Belum ada misi</p>
+                        </div>
+                    </div>
+                    <div class="lg:hidden mt-8 flex justify-center">
+                        <div
+                            class="flex w-[90%] h-32 flex-col items-center rounded-md border-2 p-0 border-black"
+                        >
+                            <div
+                                class="bg-[#A8C1D1] h-1/3 items-center font-medium -mt-0.5 flex justify-center border-2 w-[101%] border-black rounded z-10 relative"
+                            >
+                                <h4>Apakah anda yakin?</h4>
+                            </div>
+                            <div class="flex items-center h-2/3 gap-4">
+                                <button
+                                    @click="handleOpenAlertVote"
+                                    class="w-24 bg-[#9CBA8F] rounded-xl py-1 border-2 border-black"
+                                >
+                                    Pilih
+                                </button>
+                                <Link :href="route('user-voter.index')">
+                                    <button
+                                        class="w-24 bg-[#C76E7A] rounded-xl py-1 border-2 border-black"
+                                    >
+                                        Kembali
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
