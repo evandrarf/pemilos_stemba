@@ -16,18 +16,32 @@ import VXmark from "@/components/src/icons/VXmark.vue";
                     <span> Pemilos_2023/2024.jpeg </span>
                     <span><VXmark /> </span>
                 </div>
-                <div class="px-5 py-4 flex justify-between items-center">
+                <div
+                    class="px-5 py-4 flex flex-col lg:flex-row justify-between items-center"
+                >
+                    <div class="flex lg:hidden">
+                        <img
+                            src="/img/logo-mpk.png"
+                            class="lg:block h-12"
+                            alt="Logo mpk"
+                        />
+                        <img
+                            src="/img/logo-osis.png"
+                            class="lg:block h-12"
+                            alt="Logo osis"
+                        />
+                    </div>
                     <img
                         src="/img/logo-mpk.png"
-                        class="h-[132px]"
+                        class="lg:block hidden h-[132px]"
                         alt="Logo mpk"
                     />
-                    <h1 class="text-[32px] text-center">
+                    <h1 class="lg:text-[32px] text-center text-lg">
                         FORUM PEMILIHAN KETUA DAN WAKIL OSIS TAHUN 2023/2024
                     </h1>
                     <img
                         src="/img/logo-osis.png"
-                        class="h-[132px]"
+                        class="lg:block hidden h-[132px]"
                         alt="Logo osis"
                     />
                 </div>
