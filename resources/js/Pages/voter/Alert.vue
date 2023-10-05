@@ -27,13 +27,11 @@ const emit = defineEmits(["submit", "close"]);
         leave-to-class="opacity-0"
     >
         <div
-            class="absolute z-30 inset-0 bg-gray-600 opacity-80"
+            class="fixed z-30 inset-0 bg-gray-600 opacity-80"
             @click="$emit('close')"
         ></div>
     </transition>
-    <div
-        class="absolute z-40 inset-0 flex justify-center items-center font-vcr"
-    >
+    <div class="fixed z-40 inset-0 flex justify-center items-center font-vcr">
         <transition
             enter-active-class="transition ease-in-out duration-200"
             enter-from-class="opacity-0 translate-y-4"
