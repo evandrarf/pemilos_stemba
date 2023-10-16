@@ -25,7 +25,7 @@ class UpdateTeacherVoterRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'username' => ['required', 'numeric', 'string', 'unique:voters,username,' . $this->id . ',id,type,teacher'],
+            'username' => ['required', 'string', 'unique:voters,username,' . $this->id . ',id,type,teacher'],
             'password' => 'string|min:8|nullable',
         ];
     }
@@ -35,7 +35,6 @@ class UpdateTeacherVoterRequest extends FormRequest
         return [
             'name.required' => 'Name is required',
             'username.required' => 'Username is required',
-            'username.numeric' => 'Username must be numeric',
             'username.unique' => 'Username already exists',
             'password.min' => 'Password must be at least 8 characters',
         ];
