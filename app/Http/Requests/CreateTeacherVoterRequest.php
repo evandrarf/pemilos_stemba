@@ -26,7 +26,7 @@ class CreateTeacherVoterRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'username' => ['required', 'numeric', 'string', Rule::unique('voters', 'username')->where('type', 'teacher')],
+            'username' => ['required', 'string', Rule::unique('voters', 'username')->where('type', 'teacher')],
             'password' => 'string|min:8|nullable',
         ];
     }
